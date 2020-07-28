@@ -1,6 +1,6 @@
+import { ViewsRouter } from '@/viewsRouter'
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +8,12 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: ViewsRouter.Home,
+  },
+  {
+    path: '/auth',
+    name: 'Auth',
+    component: ViewsRouter.Auth,
   },
 ]
 
