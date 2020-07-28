@@ -1,0 +1,37 @@
+@use 'colors';
+
+.board {
+  background-color: theme-color('background');
+  &__column {
+    background-color: theme-color('background');
+  }
+  &__column-header {
+    &.--is-orange {
+      background-color: card-color('orange');
+    }
+    &.--is-yellow {
+      background-color: card-color('yellow');
+    }
+    &.--is-green {
+      background-color: card-color('green');
+    }
+    &.--is-blue {
+      background-color: card-color('blue');
+    }
+  }
+  &__column-body {
+    background-color: theme-color('foreground');
+  }
+  &__card {
+    background-color: theme-color('foreground-accent');
+  }
+  &__card-text {
+    color: theme-color('primary');
+  }
+  &__card-header {
+    color: theme-color('secondary');
+    &.--has-accent {
+      color: theme-color('accent');
+    }
+  }
+}
