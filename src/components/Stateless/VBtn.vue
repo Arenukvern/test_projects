@@ -3,14 +3,15 @@
   slot
 </template>
 <script lang="ts">
-import { Component } from 'vue-property-decorator'
+import { Component, Prop } from 'vue-property-decorator'
 import { getAtomClassNameObj } from '../../functions/getAtomClassNameObj'
 import { mixins } from 'vue-class-component'
 import SizeMixin from './SizeMixin'
 @Component({})
 export default class VBtn extends mixins(SizeMixin) {
+  @Prop({ required: false, default: false }) readonly icon: boolean
   get classes() {
-    return getAtomClassNameObj([this.size])
+    return getAtomClassNameObj([this.size, this.icon ? 'icon' : ''])
   }
 }
 </script>

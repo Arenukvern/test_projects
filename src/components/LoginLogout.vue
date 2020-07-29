@@ -3,7 +3,9 @@
   .card__title.--has-text-centered.--has-text-accent Welcome{{isSignIn ? ' back': ''}}!
   .card__body 
     .column
-      p.p(v-if='!isSignIn') It seems that you don't have an account. Please sign up
+      p.p.--has-text-accent(v-if='!isSignIn').
+        It seems that you don't have an account. 
+        Please sign up
       v-input(v-model='user.username' :errors='errors.username' label='Username')
       v-input(v-if='!isSignIn' v-model='user.email' :errors='errors.email' label='E-mail')
       v-input(v-model='user.password' :errors='errors.password' label='Password')
@@ -34,9 +36,6 @@ export default class LoginLogoutComponent extends Vue {
   user: User = new User()
   errors: User = new User()
   isSignIn: boolean = true
-  get isUserExists() {
-    return this.user.token !== null && this.user.token !== ''
-  }
   mounted() {
     const token = getToken()
     this.user.token = token ?? ''
@@ -63,18 +62,23 @@ export default class LoginLogoutComponent extends Vue {
         password: this.user.password,
       })
     }
-    const data = await resp.json()
-    if (resp.ok) {
-      const token = (data as User).token
-      localStorage.setItem(Constants.token, `JWT ${token}`)
-      const routeParams = this.$route.params
-      if ('nextUrl' in routeParams && routeParams.nextUrl) {
-        this.$router.push(this.$route.params.nextUrl)
+    try {
+      const data = await resp.json()
+
+      if (resp.ok) {
+        const token = (data as User).token
+        localStorage.setItem(Constants.token, `JWT ${token}`)
+        const routeParams = this.$route.params
+        if ('nextUrl' in routeParams && routeParams.nextUrl) {
+          this.$router.push(this.$route.params.nextUrl)
+        } else {
+          this.$router.push(RoutesPaths.home)
+        }
       } else {
-        this.$router.push(RoutesPaths.home)
+        Vue.set(this, 'errors', data ?? new User(resp.statusText))
       }
-    } else {
-      this.errors = data
+    } catch (error) {
+      Vue.set(this, 'errors', new User(resp.statusText))
     }
   }
 }

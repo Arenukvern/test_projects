@@ -1,5 +1,6 @@
 <template lang="pug">
 .icon(@click.prevent="$emit('click')" :class='classes')
+  i.material-icons {{icon}}
 </template>
 <script lang="ts">
 import { Component, Prop } from 'vue-property-decorator'

@@ -4,6 +4,14 @@
     justify-content: center;
     align-items: center;
   }
+  .#{$body-class}.--has-text-right {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .#{$body-class}.--has-text-left {
+    justify-content: flex-start;
+    align-items: center;
+  }
   .#{$body-class}.--has-text-centered {
     justify-content: center;
     align-items: center;

@@ -1,9 +1,11 @@
 import { ClassName } from '@/entities/ClassName'
 
-export const getAtomClassNameObj = (accentNames: string[]) => {
+export const getAtomClassNameObj = (atomNames: string[]) => {
   const obj: ClassName = new ClassName()
-  for (const accent of accentNames) {
-    obj[`--is-${accent}`] = true
+  for (const atom of atomNames) {
+    if (atom != '') {
+      obj[`--is-${atom}`] = true
+    }
   }
   return obj
 }
