@@ -14,14 +14,20 @@
     }
   }
   input,
-  select {
+  select,
+  textarea {
     margin-top: 0.5rem;
-    padding: 1em 1rem;
+    padding: 0.5em 0.5rem;
     background-color: colors.theme-color('foreground-field');
     color: colors.theme-color('accent');
     border: 0;
   }
-  input:focus {
+  textarea {
+    resize: none;
+    overflow: hidden;
+  }
+  input:focus,
+  textarea:focus {
     outline: none;
   }
 }

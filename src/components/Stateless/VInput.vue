@@ -1,7 +1,8 @@
 <template lang="pug">
 .field
   label.field__input(:for='uuid') {{label}}
-    input(v-model='pInput' :id='uuid') 
+    input(v-model='pInput' :id='uuid' v-if='!textarea' :placeholder='placeholder') 
+    textarea(v-model='pInput' :id='uuid' v-if='textarea' :placeholder='placeholder' rows= '4' :maxlength='maxlength') 
   .field__input-errors {{error}}
 </template>
 <script lang="ts">
@@ -10,6 +11,10 @@ import { v4 as uuidv4 } from 'uuid'
 
 @Component({})
 export default class VInput extends Vue {
+  @Prop({ required: false, default: false }) readonly textarea: boolean
+  @Prop({ required: false, default: 500 }) readonly maxlength: number
+  @Prop({ required: false, default: '' }) readonly placeholder: string
+
   mounted() {
     this.uuid = uuidv4()
   }
@@ -25,6 +30,6 @@ export default class VInput extends Vue {
   get error() {
     return Array.isArray(this.errors) ? this.errors[0] : this.errors
   }
-  @Prop({ required: true, default: '' }) readonly label: string
+  @Prop({ required: false, default: '' }) readonly label: string
 }
 </script>
