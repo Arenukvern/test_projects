@@ -24,3 +24,7 @@
     color: colors.theme-color('accent');
   }
 }
+.p {
+  padding: 1em;
+}
+@include has-text('p');

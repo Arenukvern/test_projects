@@ -38,7 +38,7 @@ router.beforeEach(async (to, from, next) => {
   }
   const goAuth = () => go(RoutesPaths.auth)
   const token = getToken()
-  const isTokenNull = token == null
+  const isTokenNull = token === null
   const checkToken = async () => {
     //
   }
@@ -50,6 +50,7 @@ router.beforeEach(async (to, from, next) => {
       return
     } else {
       await checkToken()
+      next()
       return
     }
   }

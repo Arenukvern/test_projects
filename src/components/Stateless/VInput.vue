@@ -1,8 +1,8 @@
 <template lang="pug">
-label.input(:for='uiid')
-  {{label}}
-  input(v-model='pInput' :id='uuid') 
-  .input__errors {{error}}
+.field
+  label.field__input(:for='uuid') {{label}}
+    input(v-model='pInput' :id='uuid') 
+  .field__input-errors {{error}}
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
@@ -25,6 +25,6 @@ export default class VInput extends Vue {
   get error() {
     return Array.isArray(this.errors) ? this.errors[0] : this.errors
   }
-  @Prop({ required: true }) readonly label: string
+  @Prop({ required: true, default: '' }) readonly label: string
 }
 </script>
