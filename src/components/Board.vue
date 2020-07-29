@@ -1,4 +1,5 @@
 <template lang="pug">
+.board
   
 </template>
 <script lang="ts">

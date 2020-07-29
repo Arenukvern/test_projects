@@ -26,7 +26,7 @@ module.exports = {
     semi: ['error', 'never'],
   },
   parserOptions: {
-    ecmaVersion: 2020,
+    // ecmaVersion: 2020,
     parser: '@typescript-eslint/parser',
   },
   overrides: [
