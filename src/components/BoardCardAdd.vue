@@ -4,9 +4,9 @@
     v-input(:textarea='true' v-model='card.text' placeholder='Ввести заголовок для этой карточки')
   .board__card-actions
     v-btn(:class="{'--is-light':true}" :small='true') Добавить карточку
-    v-btn(:class="{'--is-icon':true,'--is-light':true}" :small='true')
+    v-btn(:class="{'--is-icon':true,'--is-light':true}" :small='true' @click='close')
       v-icon(icon='close' :small='true')
-.board__card-creator(v-else)
+.board__card-creator(v-else @click.prevent='open')
   span.p-05.--has-text-sm +
   span.p-05.--has-text-sm.--has-text-left Добавить карточку
 </template>
@@ -27,5 +27,11 @@ const VInput = StatelessComponentsRouter.VInput
 export default class BoardCardAddComponent extends Vue {
   isOpened: boolean = true
   card: Card = new Card()
+  close() {
+    this.isOpened = false
+  }
+  open() {
+    this.isOpened = true
+  }
 }
 </script>
