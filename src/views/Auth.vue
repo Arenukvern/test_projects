@@ -1,5 +1,6 @@
 <template lang="pug">
-login-logout
+.column
+  login-logout
 </template>
 
 <script lang="ts">
@@ -11,5 +12,5 @@ const LoginLogout = ComponentsRouter.LoginLogout
     LoginLogout,
   },
 })
-export class AuthView extends Vue {}
+export default class AuthView extends Vue {}
 </script>

@@ -1,14 +1,14 @@
 <template lang="pug">
-.icon(@click.prevent="$emit('click')" :class='classes')
+.btn(@click.prevent="$emit('click')" :class='classes') 
+  slot
 </template>
 <script lang="ts">
-import { Component, Prop } from 'vue-property-decorator'
+import { Component } from 'vue-property-decorator'
 import { getAtomClassNameObj } from '../../functions/getAtomClassNameObj'
 import { mixins } from 'vue-class-component'
 import SizeMixin from './SizeMixin'
 @Component({})
-export default class VIcon extends mixins(SizeMixin) {
-  @Prop({ required: true }) readonly icon: string
+export default class VBtn extends mixins(SizeMixin) {
   get classes() {
     return getAtomClassNameObj([this.size])
   }

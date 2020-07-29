@@ -1,0 +1,19 @@
+@use '../colors';
+.input {
+  padding: 1em 0;
+  input,
+  select {
+    padding: 1em 1em;
+    background-color: colors.theme-color('foreground-field');
+    color: colors.theme-color('accent');
+    border: 0;
+  }
+  input:focus {
+    outline: none;
+  }
+  &__errors {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    color: colors.theme-color('error');
+  }
+}

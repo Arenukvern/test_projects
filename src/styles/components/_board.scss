@@ -1,37 +1,40 @@
 @use '../colors';
-
+@use '../statelessComponents/text';
 .board {
-  background-color: theme-color('background');
   &__column {
-    background-color: theme-color('background');
+    background-color: colors.theme-color('background');
+    display: flex;
+    flex-direction: column;
   }
   &__column-header {
+    height: 3em;
     &.--is-orange {
-      background-color: card-color('orange');
+      background-color: colors.card-color('orange');
     }
     &.--is-yellow {
-      background-color: card-color('yellow');
+      background-color: colors.card-color('yellow');
     }
     &.--is-green {
-      background-color: card-color('green');
+      background-color: colors.card-color('green');
     }
     &.--is-blue {
-      background-color: card-color('blue');
+      background-color: colors.card-color('blue');
     }
   }
+  @include text.has-text('board__column-header');
   &__column-body {
-    background-color: theme-color('foreground');
+    background-color: colors.theme-color('foreground');
   }
   &__card {
-    background-color: theme-color('foreground-accent');
+    background-color: colors.theme-color('foreground-accent');
   }
   &__card-body {
-    color: theme-color('primary');
+    color: colors.theme-color('primary');
   }
   &__card-header {
-    color: theme-color('secondary');
+    color: colors.theme-color('secondary');
     &.--has-accent {
-      color: theme-color('accent');
+      color: colors.theme-color('accent');
     }
   }
 }

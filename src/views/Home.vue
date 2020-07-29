@@ -1,23 +1,20 @@
 <template lang="pug">
-div
-  v-toolbar
-    v-icon
+.column
+  app-toolbar
   board
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import {
-  ComponentsRouter,
-  StatelessComponentsRouter,
-} from '../componentsRouter'
+import { ComponentsRouter } from '../componentsRouter'
+
 const Board = ComponentsRouter.Board
-const VToolbar = StatelessComponentsRouter.VToolbar
+const AppToolbar = ComponentsRouter.AppToolbar
 @Component({
   components: {
     Board,
-    VToolbar,
+    AppToolbar,
   },
 })
-export class HomeView extends Vue {}
+export default class HomeView extends Vue {}
 </script>

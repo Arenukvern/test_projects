@@ -1,0 +1,43 @@
+@use 'text';
+@use '../breaks';
+@use '../colors';
+.card {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  min-width: 20em;
+  border: 1px solid colors.theme-color('foreground');
+  border-radius: 0.5em;
+  padding: 1em;
+  margin: 2em;
+  @media screen and (max-width: breaks.$small) {
+    width: 100%;
+  }
+  @media screen and (min-width: breaks.$medium) and (max-width: breaks.$large) {
+    max-width: 50em;
+  }
+  @media screen and (min-width: breaks.$large) {
+    max-width: 70em;
+  }
+
+  &__title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 1em;
+  }
+  @include text.has-text('card__title');
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    padding: 1em 0;
+  }
+  &__actions {
+    padding: 1em 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}

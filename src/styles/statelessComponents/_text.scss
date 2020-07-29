@@ -1,0 +1,26 @@
+@use '../colors';
+@mixin has-text($body-class) {
+  .#{$body-class}.--has-text-centered {
+    justify-content: center;
+    align-items: center;
+  }
+  .#{$body-class}.--has-text-centered {
+    justify-content: center;
+    align-items: center;
+  }
+  .#{$body-class}.--text-is-orange {
+    color: colors.card-color('orange');
+  }
+  .#{$body-class}.--text-is-yellow {
+    color: colors.card-color('yellow');
+  }
+  .#{$body-class}.--text-is-green {
+    color: colors.card-color('green');
+  }
+  .#{$body-class}.--text-is-blue {
+    color: colors.card-color('blue');
+  }
+  .#{$body-class}.--has-text-accent {
+    color: colors.theme-color('accent');
+  }
+}

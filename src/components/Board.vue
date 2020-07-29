@@ -6,5 +6,5 @@
 import { Vue, Component } from 'vue-property-decorator'
 
 @Component({})
-export class BoardComponent extends Vue {}
+export default class BoardComponent extends Vue {}
 </script>

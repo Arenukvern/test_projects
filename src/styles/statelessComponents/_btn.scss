@@ -1,0 +1,18 @@
+@use '../colors';
+.btn {
+  padding: 1em;
+  color: colors.theme-color('accent');
+  background-color: colors.theme-color('foreground');
+  min-width: 4em;
+  width: fit-content;
+  cursor: pointer;
+  &:hover {
+    background-color: colors.theme-color('foreground-accent');
+  }
+  &.--disabled {
+    color: colors.theme-color('secondary');
+    &:hover {
+      background-color: colors.theme-color('foreground');
+    }
+  }
+}

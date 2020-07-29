@@ -10,7 +10,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component({})
-export class BoardComponent extends Vue {
+export default class BoardCardComponent extends Vue {
   @Prop({ required: true }) readonly id: string
 }
 </script>
