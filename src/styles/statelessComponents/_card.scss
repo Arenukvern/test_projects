@@ -5,36 +5,36 @@
   display: flex;
   flex-direction: column;
   width: fit-content;
-  min-width: 20em;
+  min-width: 20rem;
   border: 1px solid colors.theme-color('foreground');
-  border-radius: 0.5em;
-  padding: 1em;
-  margin: 2em;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 2rem;
   @media screen and (max-width: breaks.$small) {
     width: 100%;
   }
   @media screen and (min-width: breaks.$medium) and (max-width: breaks.$large) {
-    max-width: 50em;
+    max-width: 50rem;
   }
   @media screen and (min-width: breaks.$large) {
-    max-width: 70em;
+    max-width: 70rem;
   }
 
   &__title {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    padding: 1em;
+    padding: 1rem;
   }
   @include text.has-text('card__title');
 
   &__body {
     display: flex;
     flex-direction: column;
-    padding: 1em 0;
+    padding: 1rem 0;
   }
   &__actions {
-    padding: 1em 0;
+    padding: 1rem 0;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;

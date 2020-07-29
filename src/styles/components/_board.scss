@@ -1,13 +1,19 @@
 @use '../colors';
 @use '../statelessComponents/text';
 .board {
+  width: 100%;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 2rem;
   &__column {
     background-color: colors.theme-color('background');
     display: flex;
     flex-direction: column;
   }
   &__column-header {
-    height: 3em;
+    height: 2rem;
+    display: flex;
     &.--is-orange {
       background-color: colors.card-color('orange');
     }
@@ -24,9 +30,22 @@
   @include text.has-text('board__column-header');
   &__column-body {
     background-color: colors.theme-color('foreground');
+    min-height: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
   &__card {
     background-color: colors.theme-color('foreground-accent');
+  }
+  &__card-creator {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      background-color: colors.theme-color('foreground-accent');
+    }
   }
   &__card-body {
     color: colors.theme-color('primary');

@@ -11,6 +11,7 @@
   .#{$body-class}.--has-text-left {
     justify-content: flex-start;
     align-items: center;
+    text-align: left;
   }
   .#{$body-class}.--has-text-centered {
     justify-content: center;
@@ -31,8 +32,18 @@
   .#{$body-class}.--has-text-accent {
     color: colors.theme-color('accent');
   }
+  .#{$body-class}.--has-text-xl {
+    font-size: x-large;
+  }
+  .#{$body-class}.--has-text-sm {
+    font-size: small;
+  }
 }
 .p {
-  padding: 1em;
+  padding: 1rem;
+  &-05 {
+    padding: 0.5rem;
+  }
 }
 @include has-text('p');
+@include has-text('p-05');

@@ -2,21 +2,21 @@
 .field {
   width: 100%;
   & + & {
-    padding-top: 1em;
+    padding-top: 1rem;
   }
   &__input {
     display: flex;
     flex-direction: column;
     &-errors {
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
       color: colors.theme-color('error');
     }
   }
   input,
   select {
-    margin-top: 0.5em;
-    padding: 1em 1em;
+    margin-top: 0.5rem;
+    padding: 1em 1rem;
     background-color: colors.theme-color('foreground-field');
     color: colors.theme-color('accent');
     border: 0;

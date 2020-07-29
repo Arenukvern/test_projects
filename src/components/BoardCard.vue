@@ -2,7 +2,9 @@
 .board__card
   .board__card-header
     .board__card-header.--has-accent id:
-    .board__card-header {{id}}
+    div {{id}}
+    v-btn()
+      v-icon(icon='close')
   .board__card-body
     
 </template>

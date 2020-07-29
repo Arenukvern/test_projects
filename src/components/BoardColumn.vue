@@ -1,22 +1,31 @@
 <template lang="pug">
-.board__column
-  .board__column-header.--has-text-centered(:class='classes') {{name}}
-    v-icon(icon='delete')
+.board__column(:key='name')
+  .board__column-header.--has-text-centered.--has-text-accent(:class='classes') {{name}}
   .board__column-body
-
+    draggable(v-model="cards" group="cards")
+    board-card-add
 </template>
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { Colors } from '@/constants/Colors'
 import { getAtomClassNameObj } from '@/functions/getAtomClassNameObj'
-import { StatelessComponentsRouter } from '../componentsRouter'
+import {
+  StatelessComponentsRouter,
+  ComponentsRouter,
+} from '../componentsRouter'
+import draggable from 'vuedraggable'
+import { Card } from '../entities/Card'
+import { BoardColumn } from '@/entities/BoardColumn'
 const VIcon = StatelessComponentsRouter.VIcon
-@Component({ components: { VIcon } })
-export default class BoardComponent extends Vue {
-  @Prop({ required: true }) readonly color: Colors
+const BoardCardAdd = ComponentsRouter.BoardCardAdd
+@Component({ components: { VIcon, draggable, BoardCardAdd } })
+export default class BoardColumnComponent extends Vue {
+  @Prop({ required: true }) readonly column: BoardColumn
   get classes() {
-    return getAtomClassNameObj([this.color])
+    return getAtomClassNameObj([this.column.color])
   }
-  @Prop({ required: true }) readonly name: string
+  cards: Card[] = []
+  get name() {
+    return this.column.name.toUpperCase()
+  }
 }
 </script>

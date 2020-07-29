@@ -1,9 +1,9 @@
 @use '../colors';
 .btn {
-  padding: 1em;
+  padding: 1rem;
   color: colors.theme-color('accent');
   background-color: colors.theme-color('foreground');
-  min-width: 4em;
+  min-width: 4rem;
   width: fit-content;
   cursor: pointer;
   &:hover {
@@ -14,5 +14,9 @@
     &:hover {
       background-color: colors.theme-color('foreground');
     }
+  }
+  &.--is-icon {
+    background-color: inherit;
+    min-width: fit-content;
   }
 }

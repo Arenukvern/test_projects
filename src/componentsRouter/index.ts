@@ -2,6 +2,7 @@ export const ComponentsRouter = {
   Board: (): any => import('@/components/Board.vue'),
   BoardColumn: (): any => import('@/components/BoardColumn.vue'),
   BoardCard: (): any => import('@/components/BoardCard.vue'),
+  BoardCardAdd: (): any => import('@/components/BoardCardAdd.vue'),
   LoginLogout: (): any => import('@/components/LoginLogout.vue'),
   AppToolbar: (): any => import('@/components/AppToolbar.vue'),
 }
