@@ -5,6 +5,10 @@
   background-color: colors.theme-color('foreground');
   min-width: 4rem;
   width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   &:hover {
     background-color: colors.theme-color('foreground-accent');
@@ -18,5 +22,27 @@
   &.--is-icon {
     background-color: inherit;
     min-width: fit-content;
+  }
+  &.--is-light.--is-icon {
+    &:hover {
+      background-color: inherit;
+      color: darken(colors.theme-color('accent'), 15%);
+    }
+    color: darken(colors.theme-color('accent'), 5%);
+    background-color: inherit;
+    padding: 0 0.4rem;
+    height: 100%;
+  }
+  &.--is-light {
+    background-color: colors.theme-color('foreground-field');
+    &:hover {
+      background-color: darken(colors.theme-color('foreground-field'), 3%);
+    }
+  }
+  &.--is-small {
+    min-width: fit-content;
+
+    padding: 0.3rem 0.6rem;
+    font-size: small;
   }
 }

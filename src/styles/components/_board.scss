@@ -36,7 +36,11 @@
     justify-content: flex-end;
   }
   &__card {
+    margin: 0.4rem;
     background-color: colors.theme-color('foreground-accent');
+    &.--is-open {
+      background-color: inherit;
+    }
   }
   &__card-creator {
     display: flex;
@@ -49,6 +53,14 @@
   }
   &__card-body {
     color: colors.theme-color('primary');
+  }
+  &__card-actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    
   }
   &__card-header {
     color: colors.theme-color('secondary');
