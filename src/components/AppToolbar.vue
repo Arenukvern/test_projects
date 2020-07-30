@@ -1,5 +1,6 @@
 <template lang="pug">
 v-toolbar(:class="{'--has-text-right': true}")
+  span.p {{status}}
   v-btn(icon @click='refresh')
     v-icon(icon='refresh')
   v-btn(icon @click='signout')
@@ -29,9 +30,15 @@ export default class AppToolbar extends Vue {
     this.$router.push(RoutesPaths.auth)
   }
   async refresh() {
+    this.status = 'Synchronizing...'
     await this.$store.dispatch(
       `${VuexModules.CardsModule}/${CardsModuleI.actions.get}`
     )
+    this.status = 'Synced!'
+    setTimeout(() => {
+      this.status = ''
+    }, 1000)
   }
+  status: string = ''
 }
 </script>

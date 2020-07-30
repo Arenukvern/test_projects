@@ -1,6 +1,9 @@
 @use '../colors';
 @use '../statelessComponents/text';
 @use '../breaks';
+@mixin transition03 {
+  transition: all ease-in-out 0.3s;
+}
 .board {
   width: 100%;
   margin-top: 1rem;
@@ -40,12 +43,18 @@
   @include text.has-text('board__column-header');
   &__column-body {
     background-color: colors.theme-color('foreground');
-    min-height: 2.5rem;
+    min-height: 4rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    @include transition03();
+  }
+  &__column-dropzone {
+    min-height: 3rem;
+    @include transition03();
   }
   &__card {
+    @include transition03();
     cursor: grab;
     margin: 0.4rem;
     @media screen and (max-width: breaks.$medium) {
@@ -56,13 +65,16 @@
     &.--is-open {
       background-color: inherit;
     }
+    &.--is-chosen {
+      opacity: 0.7;
+    }
   }
   &__card-creator {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     cursor: pointer;
-    transition: ease-in-out 0.3s;
+    @include transition03();
     &:hover {
       background-color: colors.theme-color('foreground-accent');
     }

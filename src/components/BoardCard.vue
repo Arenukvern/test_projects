@@ -1,11 +1,11 @@
 <template lang="pug">
-.board__card
+.board__card(:key='card.id')             
   .board__card-header
     .board__card-header.--has-accent id:
     div {{card.id}}
     .board__card-delete
       v-btn(@click='deleteCard' :small='true' :class="{'--is-light': true, '--is-icon': true, }")
-        v-icon(icon='close')
+        v-icon(icon='close' :small='true' )
   .board__card-body {{card.text}}
 </template>
 <script lang="ts">

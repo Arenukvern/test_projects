@@ -1,8 +1,14 @@
 <template lang="pug">
 .board__column(:key='name')
-  .board__column-header.--has-text-centered.--has-text-accent(:class='classes') {{name}} ({{cardsCount}})
+  .board__column-header.--has-text-centered.--has-text-accent.--has-text-shadow(:class='classes') {{name}} ({{cardsCount}})
   .board__column-body
-    draggable(v-model="cards" group="cards" draggable='.board__card' @change='sort')
+    draggable(
+      v-model="cards" 
+      draggable='.board__card' 
+      @change='sort'
+      v-bind="dragOptions"
+      class='board__column-dropzone'
+    )
       board-card(v-for="card in cards" :key='card.id' :card='card')
     board-card-add(:row='column.id')
 </template>
@@ -24,6 +30,7 @@ const BoardCardAdd = ComponentsRouter.BoardCardAdd
 const BoardCard = ComponentsRouter.BoardCard
 @Component({ components: { VIcon, draggable, BoardCardAdd, BoardCard } })
 export default class BoardColumnComponent extends Vue {
+  drag: boolean = false
   @Prop({ required: true }) readonly column: BoardColumn
   get classes() {
     return getAtomClassNameObj([this.column.color])
@@ -58,6 +65,12 @@ export default class BoardColumnComponent extends Vue {
   }
   get cardsCount() {
     return this.cards.length
+  }
+  dragOptions = {
+    animation: 200,
+    group: 'cards',
+    disabled: false,
+    ghostClass: '--is-chosen',
   }
 }
 </script>
