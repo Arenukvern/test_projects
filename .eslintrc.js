@@ -20,13 +20,20 @@ module.exports = {
     'no-fallthrough': 'off',
     'no-prototype-builtins': 'off',
     'no-unused-vars': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-namespace': 'off',
+    '@typescript-eslint/class-name-casing': 'off',
+    '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off',
+    '@typescript-eslint/prefer-namespace-keyword': 'off',
+    '@typescript-eslint/camelcase': 'off',
     indent: [2, 2, { SwitchCase: 1 }],
     quotes: ['error', 'single'],
     // we want to force semicolons
     semi: ['error', 'never'],
   },
   parserOptions: {
-    ecmaVersion: 2020,
+    // ecmaVersion: 2020,
     parser: '@typescript-eslint/parser',
   },
   overrides: [
