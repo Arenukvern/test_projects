@@ -71,6 +71,7 @@ export default class BoardColumnComponent extends Vue {
     group: 'cards',
     disabled: false,
     ghostClass: '--is-chosen',
+    chosenClass: '--is-chosen',
   }
 }
 </script>
