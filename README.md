@@ -1,4 +1,4 @@
-# test_kanban
+# Test Kanban project 
 
 ## Project setup
 ```
