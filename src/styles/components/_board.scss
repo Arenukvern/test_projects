@@ -1,15 +1,25 @@
 @use '../colors';
 @use '../statelessComponents/text';
+@use '../breaks';
 .board {
   width: 100%;
   margin-top: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  column-gap: 1rem;
+  row-gap: 1rem;
   &__column {
     background-color: colors.theme-color('background');
     display: flex;
     flex-direction: column;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    @media screen and (max-width: breaks.$medium) {
+      margin-left: 0.3rem;
+      margin-right: 0.3rem;
+    }
   }
   &__column-header {
     height: 2rem;
@@ -38,6 +48,10 @@
   &__card {
     cursor: grab;
     margin: 0.4rem;
+    @media screen and (max-width: breaks.$medium) {
+      margin-left: 0;
+      margin-right: 0;
+    }
     background-color: colors.theme-color('foreground-accent');
     &.--is-open {
       background-color: inherit;
@@ -48,6 +62,7 @@
     justify-content: flex-start;
     align-items: center;
     cursor: pointer;
+    transition: ease-in-out 0.3s;
     &:hover {
       background-color: colors.theme-color('foreground-accent');
     }
