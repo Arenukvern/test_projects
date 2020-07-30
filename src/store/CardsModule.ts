@@ -1,9 +1,12 @@
+import { BoardColumns } from '@/constants/BoardColumns'
 import { Card } from '@/entities/Card'
 import { CardService } from '@/services/CardService'
 import Vue from 'vue'
 export module CardsModuleI {
   export interface state {
-    cards: Card[]
+    rows: {
+      [rowId: string]: Card[]
+    }
   }
   export enum getters {
     cards = 'cards',
@@ -19,32 +22,48 @@ export module CardsModuleI {
 }
 
 const state = () => {
-  const st: CardsModuleI.state = { cards: [] }
+  const st: CardsModuleI.state = {
+    rows: {
+      0: [],
+      1: [],
+      2: [],
+      3: [],
+    },
+  }
   return st
 }
 const getters = {
   [CardsModuleI.getters.cards](state: CardsModuleI.state) {
-    return state.cards
+    return state.rows
   },
 }
 const mutations = {
   [CardsModuleI.mutations.save](state: CardsModuleI.state, card: Card) {
-    const index = state.cards.findIndex(el => el.id == card.id)
+    const cards = state.rows[card.row]
+
+    const index = cards.findIndex(el => el.id == card.id)
     if (index >= 0) {
-      state.cards.splice(index, 1, card)
+      cards.splice(index, 1, card)
     } else {
-      state.cards.unshift(card)
+      cards.unshift(card)
     }
+    Vue.set(state.rows, card.row, cards)
   },
   [CardsModuleI.mutations.delete](state: CardsModuleI.state, card: Card) {
-    const index = state.cards.findIndex(el => el.id == card.id)
+    const cards = state.rows[card.row]
+
+    const index = cards.findIndex(el => el.id == card.id)
     if (index >= 0) {
-      state.cards.splice(index, 1)
+      cards.splice(index, 1)
     }
+    Vue.set(state.rows, card.row, cards)
   },
 
-  [CardsModuleI.mutations.saveAll](state: CardsModuleI.state, cards: Card[]) {
-    Vue.set(state.cards, 'cards', cards)
+  [CardsModuleI.mutations.saveAll](
+    state: CardsModuleI.state,
+    { cards, row }: { row: Card['row']; cards: Card[] }
+  ) {
+    Vue.set(state.rows, row, cards)
   },
 }
 const actions = {
@@ -56,11 +75,16 @@ const actions = {
     commit: any
   }) {
     const service = new CardService()
-    const resp = await service.get()
-    if (resp.ok) {
-      commit(CardsModuleI.mutations.saveAll, await resp.json())
-    } else {
-      //
+    for (const row in BoardColumns) {
+      const resp = await service.get({ row })
+      if (resp.ok) {
+        commit(CardsModuleI.mutations.saveAll, {
+          row,
+          cards: await resp.json(),
+        })
+      } else {
+        //
+      }
     }
   },
 }

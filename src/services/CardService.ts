@@ -13,6 +13,9 @@ export module CardService {
     seq_num: number
     text: Card['text']
   }
+  export interface getArg {
+    row: string
+  }
 }
 
 export class CardService {
@@ -33,11 +36,15 @@ export class CardService {
       `${api.cards}${cardId}/`
     )
   }
-  async get() {
+  async get(arg?: CardService.getArg) {
+    const urlParams: URLSearchParams = new URLSearchParams()
+    if (arg) urlParams.append('row', arg.row)
     return await FetchService.request(
       undefined,
       RequestMethods.get,
-      `${api.cards}`
+      `${api.cards}`,
+      true,
+      urlParams
     )
   }
 }

@@ -15,7 +15,8 @@ export class FetchService {
     body: any | undefined,
     requestMethod: RequestMethods,
     url: string,
-    checkToken: boolean = true
+    checkToken: boolean = true,
+    urlSearchParams?: URLSearchParams
   ) {
     const headers = new Headers()
     const checkAndRefreshToken = async () => {
@@ -50,8 +51,10 @@ export class FetchService {
     if (body) {
       obj.body = toFormData(body)
     }
+    const urlObj = new URL(url)
+    if (urlSearchParams) urlObj.search = urlSearchParams.toString()
     console.log(obj)
-    const resp: Response = await fetch(url, obj)
+    const resp: Response = await fetch(urlObj.href, obj)
     return resp
   }
 }
