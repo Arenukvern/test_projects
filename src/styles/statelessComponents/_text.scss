@@ -38,6 +38,9 @@
   .#{$body-class}.--has-text-sm {
     font-size: small;
   }
+  .#{$body-class}.--has-text-shadow {
+    text-shadow: 1px 1px 11px rgba(0, 0, 0, 0.6);
+  }
 }
 .p {
   padding: 1rem;

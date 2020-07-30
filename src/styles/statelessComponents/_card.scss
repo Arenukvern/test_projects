@@ -11,9 +11,11 @@
   padding: 1rem;
   margin: 2rem;
   @media screen and (max-width: breaks.$small) {
-    width: 100%;
+    width: auto;
+    min-width: 10rem;
+    border: none;
   }
-  @media screen and (min-width: breaks.$medium) and (max-width: breaks.$large) {
+  @media screen and (max-width: breaks.$large) {
     max-width: 50rem;
   }
   @media screen and (min-width: breaks.$large) {

@@ -13,3 +13,7 @@ export const StatelessComponentsRouter = {
   VBtn: (): any => import('@/components/Stateless/VBtn.vue'),
   VInput: (): any => import('@/components/Stateless/VInput.vue'),
 }
+
+export const icons = {
+  plus: (): any => import('@/components/Icons/IconPlus.vue'),
+}
