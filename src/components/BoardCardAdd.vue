@@ -53,6 +53,8 @@ export default class BoardCardAddComponent extends Vue {
         await resp.json()
       )
       this.close()
+      this.card = new Card()
+      this.card.row = this.row
     }
   }
 }

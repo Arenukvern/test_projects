@@ -1,6 +1,6 @@
 <template lang="pug">
 .board__column(:key='name')
-  .board__column-header.--has-text-centered.--has-text-accent(:class='classes') {{name}}
+  .board__column-header.--has-text-centered.--has-text-accent(:class='classes') {{name}} ({{cardsCount}})
   .board__column-body
     draggable(v-model="cards" group="cards" draggable='.board__card' @change='sort')
       board-card(v-for="card in cards" :key='card.id' :card='card')
@@ -55,6 +55,9 @@ export default class BoardColumnComponent extends Vue {
       }
     }
     this.cards = newCards
+  }
+  get cardsCount() {
+    return this.cards.length
   }
 }
 </script>
