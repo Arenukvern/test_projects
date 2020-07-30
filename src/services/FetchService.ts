@@ -53,7 +53,6 @@ export class FetchService {
     }
     const urlObj = new URL(url)
     if (urlSearchParams) urlObj.search = urlSearchParams.toString()
-    console.log(obj)
     const resp: Response = await fetch(urlObj.href, obj)
     return resp
   }

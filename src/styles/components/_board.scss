@@ -36,6 +36,7 @@
     justify-content: flex-end;
   }
   &__card {
+    cursor: grab;
     margin: 0.4rem;
     background-color: colors.theme-color('foreground-accent');
     &.--is-open {
@@ -53,6 +54,16 @@
   }
   &__card-body {
     color: colors.theme-color('primary');
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 0.7rem;
+  }
+  &__card-delete {
+    position: absolute;
+    right: 0.1rem;
+    top: 0.1rem;
   }
   &__card-actions {
     display: flex;
@@ -60,10 +71,14 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
-    
   }
   &__card-header {
     color: colors.theme-color('secondary');
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.3rem;
+    position: relative;
     &.--has-accent {
       color: colors.theme-color('accent');
     }

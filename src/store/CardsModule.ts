@@ -32,6 +32,7 @@ const state = () => {
   }
   return st
 }
+
 const getters = {
   [CardsModuleI.getters.cards](state: CardsModuleI.state) {
     return state.rows
@@ -45,7 +46,7 @@ const mutations = {
     if (index >= 0) {
       cards.splice(index, 1, card)
     } else {
-      cards.unshift(card)
+      cards.push(card)
     }
     Vue.set(state.rows, card.row, cards)
   },
