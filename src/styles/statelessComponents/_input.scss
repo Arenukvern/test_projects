@@ -1,0 +1,33 @@
+@use '../colors';
+.field {
+  width: 100%;
+  & + & {
+    padding-top: 1rem;
+  }
+  &__input {
+    display: flex;
+    flex-direction: column;
+    &-errors {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      color: colors.theme-color('error');
+    }
+  }
+  input,
+  select,
+  textarea {
+    margin-top: 0.5rem;
+    padding: 0.5em 0.5rem;
+    background-color: colors.theme-color('foreground-field');
+    color: colors.theme-color('accent');
+    border: 0;
+  }
+  textarea {
+    resize: none;
+    overflow: hidden;
+  }
+  input:focus,
+  textarea:focus {
+    outline: none;
+  }
+}

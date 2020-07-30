@@ -1,18 +1,20 @@
-<template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+<template lang="pug">
+.column
+  app-toolbar
+  board
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import { ComponentsRouter } from '../componentsRouter'
 
-export default {
-  name: 'Home',
+const Board = ComponentsRouter.Board
+const AppToolbar = ComponentsRouter.AppToolbar
+@Component({
   components: {
-    HelloWorld,
+    Board,
+    AppToolbar,
   },
-}
+})
+export default class HomeView extends Vue {}
 </script>
