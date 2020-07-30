@@ -28,6 +28,6 @@ export class AuthService {
   }
   async refreshToken(arg: AuthService.refreshTokenArg) {
     const url = api.users.refreshToken
-    return await FetchService.request(arg, RequestMethods.post, url)
+    return await FetchService.request(arg, RequestMethods.post, url, false)
   }
 }

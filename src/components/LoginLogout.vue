@@ -21,7 +21,7 @@ import { User } from '../entities/User'
 import { AuthService } from '@/services/AuthService'
 import { Constants } from '../constants/Constants'
 import { RoutesPaths } from '../constants/RoutesPaths'
-import { getToken } from '../functions/getToken'
+import { getToken, createToken } from '../functions/getToken'
 
 const VBtn = StatelessComponentsRouter.VBtn
 const VInput = StatelessComponentsRouter.VInput
@@ -67,7 +67,7 @@ export default class LoginLogoutComponent extends Vue {
 
       if (resp.ok) {
         const token = (data as User).token
-        localStorage.setItem(Constants.token, `JWT ${token}`)
+        localStorage.setItem(Constants.token, createToken(token))
         const routeParams = this.$route.params
         if ('nextUrl' in routeParams && routeParams.nextUrl) {
           this.$router.push(this.$route.params.nextUrl)

@@ -3,7 +3,7 @@
   .board__column-header.--has-text-centered.--has-text-accent(:class='classes') {{name}}
   .board__column-body
     draggable(v-model="cards" group="cards")
-    board-card-add
+    board-card-add(:row='column.id')
 </template>
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'

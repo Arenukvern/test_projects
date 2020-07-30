@@ -14,6 +14,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { StatelessComponentsRouter } from '../componentsRouter'
 import { Card } from '../entities/Card'
+import { CardService } from '../services/CardService'
 const VBtn = StatelessComponentsRouter.VBtn
 const VIcon = StatelessComponentsRouter.VIcon
 const VInput = StatelessComponentsRouter.VInput
@@ -27,11 +28,20 @@ const VInput = StatelessComponentsRouter.VInput
 export default class BoardCardAddComponent extends Vue {
   isOpened: boolean = true
   card: Card = new Card()
+  @Prop({ required: true }) readonly row: string
+  mounted() {
+    this.card.row = this.row
+  }
   close() {
     this.isOpened = false
   }
   open() {
     this.isOpened = true
+  }
+  async create() {
+    const service = new CardService()
+    await service.create({ row: this.row, text: this.card.text })
+    this.close()
   }
 }
 </script>

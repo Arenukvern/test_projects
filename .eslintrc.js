@@ -24,6 +24,8 @@ module.exports = {
     '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/class-name-casing': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off',
+    '@typescript-eslint/prefer-namespace-keyword': 'off',
     indent: [2, 2, { SwitchCase: 1 }],
     quotes: ['error', 'single'],
     // we want to force semicolons

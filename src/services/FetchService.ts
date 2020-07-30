@@ -1,11 +1,8 @@
+import { Constants } from '@/constants/Constants'
 import { RequestMethods } from '@/constants/RequestMethods'
-import { getToken } from '@/functions/getToken'
+import { cleanToken, createToken, getToken } from '@/functions/getToken'
+import { AuthService } from './AuthService'
 
-const headers = new Headers()
-const token = getToken()
-if (token !== null) {
-  headers.append('Authorization', token)
-}
 const toFormData = (data: any) => {
   const formData = new FormData()
   for (const key in data) {
@@ -14,12 +11,45 @@ const toFormData = (data: any) => {
   return formData
 }
 export class FetchService {
-  static async request(body: any, requestMethod: RequestMethods, url: string) {
+  static async request(
+    body: any | undefined,
+    requestMethod: RequestMethods,
+    url: string,
+    checkToken: boolean = true
+  ) {
+    const headers = new Headers()
+    const checkAndRefreshToken = async () => {
+      const token = getToken()
+      if (token !== null) {
+        const authService = new AuthService()
+        const resp = await authService.refreshToken({
+          token: cleanToken(token),
+        })
+        if (resp.ok) {
+          const newToken = createToken(
+            ((await resp.json()) as AuthService.refreshTokenArg).token
+          )
+          headers.append('Authorization', newToken)
+          localStorage.setItem(Constants.token, newToken)
+        }
+      }
+    }
+
+    if (checkToken) {
+      await checkAndRefreshToken()
+    } else {
+      const token = getToken()
+      if (token) {
+        headers.append('Authorization', token)
+      }
+    }
     const obj: RequestInit = {
       method: requestMethod,
-      body: toFormData(body),
       headers,
     } as RequestInit
+    if (body) {
+      obj.body = toFormData(body)
+    }
     console.log(obj)
     const resp: Response = await fetch(url, obj)
     return resp
