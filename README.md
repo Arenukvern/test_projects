@@ -1,4 +1,5 @@
 # Test Kanban project 
+[![Maintainability](https://api.codeclimate.com/v1/badges/ed7bec1648abc8f0d2ac/maintainability)](https://codeclimate.com/github/Arenukvern/test_kanban/maintainability)
 
 ## Project setup
 ```
