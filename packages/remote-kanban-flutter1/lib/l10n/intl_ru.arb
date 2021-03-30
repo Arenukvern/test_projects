@@ -1,0 +1,28 @@
+{
+  "@@last_modified": "2020-07-31T23:31:35.847741",
+  "enterYourUsername": "Введите ваш никнэйм",
+  "@enterYourUsername": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterYourPassword": "Введите ваш пароль",
+  "@enterYourPassword": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "login": "Log in",
+  "@login": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "passwordValidationMessage": "Минимум 8 символов",
+  "@passwordValidationMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "usernameValidationMessage": "Минимум 4 символов",
+  "@usernameValidationMessage": {
+    "type": "text",
+    "placeholders": {}
+  }
+}
