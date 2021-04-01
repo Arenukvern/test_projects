@@ -2,18 +2,18 @@ $seashell: #fbf8f7;
 $coffee-bean: #37302a;
 
 .back {
-  &.seashell {
+  &.color-seashell {
     background-color: $seashell;
   }
-  &.coffee-bean {
+  &.color-coffee-bean {
     background-color: $coffee-bean;
   }
 }
 .text {
-  &.seashell {
+  &.color-seashell {
     color: $seashell;
   }
-  &.coffee-bean {
+  &.color-coffee-bean {
     color: $coffee-bean;
   }
 }
