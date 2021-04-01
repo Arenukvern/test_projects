@@ -6,8 +6,6 @@
 }
 .scaffold {
   @include scaffold-basis;
-  // height: 100vh;
-  // width: 100vh;
   a,
   button,
   div,
@@ -37,5 +35,6 @@
   .app {
     position: relative;
     min-height: 100vh;
+    height: 100vh;
   }
 }

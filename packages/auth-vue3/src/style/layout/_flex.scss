@@ -1,9 +1,37 @@
+@mixin _cross-center {
+  align-content: center;
+  align-items: center;
+}
+@mixin _main-center {
+  justify-content: center;
+  justify-items: center;
+}
+
 @mixin flex-basis {
   display: flex;
-  &.justify-between {
-    justify-content: space-between;
+  &.cross-align {
+    &-center {
+      @include _cross-center;
+    }
+    &-end {
+      align-content: flex-end;
+      align-items: flex-end;
+    }
   }
-  &.align-center {
-    align-content: center;
+  &.main-align {
+    &-center {
+      @include _main-center;
+    }
+    &-end {
+      justify-content: flex-end;
+      justify-items: flex-end;
+    }
+    &-space-between {
+      justify-content: space-between;
+    }
+  }
+  &.center {
+    @include _main-center;
+    @include _cross-center;
   }
 }
