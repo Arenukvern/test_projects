@@ -1,0 +1,19 @@
+$seashell: #fbf8f7;
+$coffee-bean: #37302a;
+
+.back {
+  &.seashell {
+    background-color: $seashell;
+  }
+  &.coffee-bean {
+    background-color: $coffee-bean;
+  }
+}
+.text {
+  &.seashell {
+    color: $seashell;
+  }
+  &.coffee-bean {
+    color: $coffee-bean;
+  }
+}
