@@ -42,13 +42,13 @@
   }
 
   &-group-item {
-    transition: all 0.8s ease;
+    transition: all 0.2s ease;
     display: inline-block;
   }
   &-group-enter-from,
   &-group-leave-to {
     opacity: 0;
-    transform: translateX(300px);
+    transform: translateX(80px);
   }
   &-group-leave-active {
     position: absolute;

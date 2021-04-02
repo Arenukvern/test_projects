@@ -35,14 +35,18 @@ div(
     .column.h-21.w-14.main-align-space-between
       +auth-screen
       .row.cross-align-end
-        tab(
+        tab.border-radius-9.mr-6(
           :isActive='isSignIn'
           @click='enableSignIn'
-        ) Sign in
-        tab(
+          
+        ) 
+          .subtitle Sign in
+        tab.border-radius-9(
           :isActive='isSignUp'
           @click='enableSignUp'
-        ) Sign up
+          
+        )
+          .subtitle Sign up
 
 </template>
 
