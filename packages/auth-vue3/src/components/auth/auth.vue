@@ -1,6 +1,6 @@
 <template lang="pug">
 mixin auth-screen
-  transition-group(name="fade-group" tag='div')
+  transition-group(:name="'fade-group'" tag='div')
     sign-in.fade-group-item(
       key='signin' v-if='isSignIn'
       :email='email'

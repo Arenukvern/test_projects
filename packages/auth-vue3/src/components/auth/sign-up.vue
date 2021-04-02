@@ -2,7 +2,7 @@
 div
   p.text.center.h4 {{title}}
   .h-4
-  transition-group(name="fade-group" tag='div')
+  transition-group(:name="'fade-group'" tag='div')
     .column.main-align-start.fade-group-item(
       key='register' v-if='isRegister'
     )
