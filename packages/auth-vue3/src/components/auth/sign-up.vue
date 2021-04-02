@@ -36,6 +36,7 @@ div
         :required='true'
         @updateIsValueValid='isValid=>isPasswordConfirmationValid = isValid'
         :hightlightSuccess='isPasswordConfirmationValid'
+        @keyup.enter="register"
       )
         template(v-slot:suffix)
           transition(name="fade")

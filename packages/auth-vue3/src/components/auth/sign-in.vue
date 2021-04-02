@@ -12,6 +12,7 @@ div
         placeholder='email'
         type='email'
         v-model='email'
+        @keyup.enter="verifyEmail"
         :validationCallback='emailValidator'
         :errorMessage='emailErrorMessage'
         :required='true'
@@ -35,6 +36,7 @@ div
           :errorMessage='passwordErrorMessage'
           :required='true'
           @updateIsValueValid='isValid=>isPasswordValid = isValid'
+          @keyup.enter="confirmPassword"
           :showErrorMessage='isWrongPassword'
         )
           template(v-slot:suffix)
