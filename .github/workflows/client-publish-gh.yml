@@ -1,0 +1,46 @@
+# # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+# name: Build
+# on:
+#   push:
+#     branches:
+#       - master
+# jobs:
+#   build:
+#     name: Build auth-vue3
+#     env:
+#       my_secret: ${{secrets.COMMIT_SECRET}}
+#       working-directaory: ./packages/cactus-sync-client
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         node-version: [14.x]
+#     steps:
+#       - uses: actions/checkout@v2
+
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#       - run: yarn install
+#         working-directory: ${{env.working-directory}}
+#       # - run: yarn run test
+#       - run: yarn build --if-present
+#         working-directory: ${{env.working-directory}}
+#       - run: |
+#           cd dist
+#           git init
+#           # type configurations: your user.email and user.name followed lines
+#           # git config --global user.email your_email
+#           # git config --global user.name your_name
+#           git config --global user.email ${{secrets.USER_EMAIL}}
+#           git config --global user.name ${{secrets.USER_NAME}}
+#           git status
+#           # change this remote url for examle your remote url is then the following:
+#           git remote add origin https://${{secrets.COMMIT_SECRET}}@github.com/xsoulspace/test_projects.git
+#           git checkout -b gh-pages
+#           git add --all
+#           git commit -m "update"
+#           git push origin gh-pages -f
+#         working-directory: ${{env.working-directory}}
