@@ -26,6 +26,10 @@
       justify-content: flex-end;
       justify-items: flex-end;
     }
+    &-start {
+      justify-content: flex-start;
+      justify-items: flex-start;
+    }
     &-space-between {
       justify-content: space-between;
     }
