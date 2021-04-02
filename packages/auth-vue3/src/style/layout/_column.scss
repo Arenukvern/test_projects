@@ -1,6 +1,0 @@
-@use './flex';
-
-.column {
-  @include flex.flex-basis;
-  flex-direction: column;
-}

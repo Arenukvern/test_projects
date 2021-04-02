@@ -1,6 +1,0 @@
-@use './flex';
-
-.row {
-  @include flex.flex-basis;
-  flex-direction: row;
-}
