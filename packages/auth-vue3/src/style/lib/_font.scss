@@ -1,33 +1,6 @@
-@mixin _redressed {
+@mixin font-redressed {
   font-family: 'Redressed', serif;
 }
-
-.font {
-  &-redressed {
-    a,
-    button,
-    div,
-    footer,
-    form,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    header,
-    html,
-    img,
-    label,
-    li,
-    nav,
-    p,
-    select,
-    span,
-    table,
-    textarea,
-    ul {
-      @include _redressed;
-    }
-    @include _redressed;
-  }
+@mixin font-helvetica {
+  font-family: Helvetica, Arial, sans-serif;
 }

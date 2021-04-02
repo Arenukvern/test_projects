@@ -6,14 +6,8 @@
       .column.h-18.w-14
         p.text.center.h4 {{welcome}}
         .h-4
-        div(
-          class=`
-            column
-            main-align-start
-            transition-duration-04
-            transition-all
-            transition-easy 
-          `
+        .column.main-align-start(
+          v-if='isSignIn || isSignUp'
         )
           field(
             v-show='isEmailStep || isSignUp'
@@ -45,12 +39,16 @@
             )
               template(v-slot:suffix)
                 transition(name="fade")
-                  icon-button.ml-4(v-show='isSignIn && isPasswordValid')
+                  icon-button.ml-4(
+                    v-show='isSignIn && isPasswordValid'
+                    @click='confirmPassword'  
+                  )
                     img(:src='"./assets/send.svg"')
           transition(name="fade-1")
             styled-button.h-2.border-radius-5(
-              v-show='isPasswordStep'
+              v-show='isPasswordStep && isSignIn'
               mainAlignClass="main-align-left cross-align-center"
+              @click='forgotPassword'
             ) 
               .ml-4 Forgot password?
           transition(name="fade")
@@ -58,15 +56,35 @@
               v-show='isSignUp'
               placeholder='confirm password'
               type='password'
-              v-model='confirmPassword'
-              :validationCallback='confirmPasswordValidator'
+              v-model='passwordConfirmation'
+              :validationCallback='passwordConfirmationValidator'
               errorMessage='Password doesn\'t match'
               :required='true'
+              @updateIsValueValid='isValid=>isPasswordConfirmationValid = isValid'
             )
               template(v-slot:suffix)
-                icon-button.ml-4
-                  img(:src='"./assets/send.svg"')
-
+                transition(name="fade")
+                  icon-button.ml-4(
+                    v-show='isReadyToRegister'
+                    @click='register'
+                  )
+                    img(:src='"./assets/send.svg"')
+        transition(name="fade-1")
+          .column.main-align-start(
+            v-if='isPasswordRecovery'
+          )
+            .p.mb-8 We sent email to {{email}} with password change instructions. 
+            .p Please follow them to recover your password safely. 
+        transition(name="fade-1")
+          .column.main-align-start(
+            v-if='isAuthorized'
+          )
+            .p You succefully authorized!
+        transition(name="fade-1")
+          .column.main-align-start(
+            v-if='isRegistered'
+          )
+            .p You succefully registered! 
     .row.cross-align-end
       tab(
         :isActive='isSignIn'
@@ -107,16 +125,22 @@
       Tab: defineAsyncComponent(() => import('./components-core/tab.vue')),
     },
     setup() {
+      // =============== Mods ================
       const currentMode = ref(Mode.signin)
       const isSignIn = computed(() => currentMode.value == Mode.signin)
       const isSignUp = computed(() => currentMode.value == Mode.signup)
+      const isPasswordRecovery = computed(
+        () => currentMode.value == Mode.passwordRecovery
+      )
+      const isAuthorized = computed(() => currentMode.value == Mode.authorized)
+      const isRegistered = computed(() => currentMode.value == Mode.registered)
       const enableSignIn = () => {
         currentMode.value = Mode.signin
         currentSignInStep.value = SignInSteps.email
       }
       const enableSignUp = () => (currentMode.value = Mode.signup)
 
-      // Sign in steps
+      //  =========== Sign in steps =============
 
       const currentSignInStep = ref(SignInSteps.email)
       const isPasswordStep = computed(
@@ -130,10 +154,16 @@
           case Mode.signin:
             return 'Welcome back'
           case Mode.signup:
-          default:
             return 'Registraion'
+          case Mode.passwordRecovery:
+            return 'Password recovery'
+          case Mode.registered:
+          case Mode.authorized:
+          default:
+            return ''
         }
       })
+      //  =========== email =============
 
       const email = ref('')
       const isEmailNotEmpty = computed(() => email.value.length)
@@ -158,21 +188,50 @@
           currentMode.value = Mode.signup
         }
       }
+
+      //  =========== password =============
+
       const password = ref('')
       const passwordValidator: FieldValidationCallback = ({ value }) =>
         value.length > 4
+      // Validation by password validator
       const isPasswordValid = ref(false)
-
+      // Validation from server request
       const isWrongPassword = ref(false)
       const passwordErrorMessage = computed(() => {
         if (isWrongPassword.value) return 'Wrong password. Please try another'
         return 'Password must have at least 5 symbols'
       })
+      const confirmPassword = () => {
+        // TODO: check with local storage
+        const isAuthorized = true
+        if (isAuthorized) {
+          isWrongPassword.value = false
+          currentMode.value = Mode.authorized
+        } else {
+          isWrongPassword.value = true
+        }
+      }
+      const forgotPassword = () => {
+        currentMode.value = Mode.passwordRecovery
+      }
+      //  =========== confirm password =============
 
-      const confirmPassword = ref('')
-      const confirmPasswordValidator: FieldValidationCallback = ({ value }) =>
-        value == password.value
-
+      const passwordConfirmation = ref('')
+      const isPasswordConfirmationValid = ref(false)
+      const passwordConfirmationValidator: FieldValidationCallback = ({
+        value,
+      }) => value == password.value
+      const isReadyToRegister = computed(
+        () =>
+          isPasswordValid.value &&
+          isPasswordConfirmationValid.value &&
+          isEmailValid
+      )
+      const register = () => {
+        // TODO: write to local storage
+        currentMode.value = Mode.registered
+      }
       return {
         isPasswordStep,
         isEmailStep,
@@ -188,11 +247,19 @@
         passwordValidator,
         isPasswordValid,
         confirmPassword,
-        confirmPasswordValidator,
+        passwordConfirmation,
+        passwordConfirmationValidator,
+        isPasswordConfirmationValid,
+        register,
+        isReadyToRegister,
         isSignIn,
         isSignUp,
         enableSignIn,
         enableSignUp,
+        isPasswordRecovery,
+        isAuthorized,
+        isRegistered,
+        forgotPassword,
       }
     },
   })

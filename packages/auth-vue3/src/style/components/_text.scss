@@ -1,3 +1,4 @@
+@use '../lib/font';
 @use '../lib/colors';
 @mixin _cross-center {
   vertical-align: middle;
@@ -5,7 +6,10 @@
 @mixin _main-center {
   text-align: center;
 }
-
+.p {
+  @include font.font-helvetica;
+  line-height: 1.4rem;
+}
 .text {
   &.cross-align {
     &-center {

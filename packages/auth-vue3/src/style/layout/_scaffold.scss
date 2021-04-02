@@ -1,4 +1,6 @@
 @use '../lib/colors';
+@use '../lib/font';
+
 @mixin scaffold-basis {
   margin: 0;
   padding: 0;
@@ -39,4 +41,5 @@ table,
 textarea,
 ul {
   @include scaffold-basis;
+  @include font.font-redressed;
 }
