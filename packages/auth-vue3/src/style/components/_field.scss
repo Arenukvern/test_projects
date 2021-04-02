@@ -1,0 +1,7 @@
+@use '../lib/colors';
+
+input {
+  border: 0;
+  outline: 0;
+  @include colors.hover-focus-color;
+}
