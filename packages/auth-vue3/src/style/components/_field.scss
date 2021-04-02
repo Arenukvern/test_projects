@@ -1,2 +1,23 @@
-.field {
+@use '../lib/colors';
+
+input {
+  border: 0;
+  outline: 0;
+  @include colors.hover-focus-color;
+}
+.border {
+  &-bottom {
+    &-1 {
+      border-bottom-width: 1px;
+    }
+    &-dashed {
+      border-bottom-style: dashed;
+    }
+    &-color-seashell {
+      border-bottom-color: colors.$coffee-bean;
+    }
+  }
+  &-radius-5 {
+    border-radius: 5px;
+  }
 }

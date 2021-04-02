@@ -1,3 +1,4 @@
+@use '../lib/colors';
 @mixin scaffold-basis {
   margin: 0;
   padding: 0;
@@ -5,30 +6,8 @@
   line-height: 1;
 }
 .scaffold {
-  @include scaffold-basis;
-  a,
-  button,
-  div,
-  footer,
-  form,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  header,
-  html,
-  img,
-  label,
-  li,
-  nav,
-  p,
-  select,
-  span,
-  table,
-  textarea,
-  ul {
-    @include scaffold-basis;
+  &.color-coffee-bean {
+    color: colors.$coffee-bean;
   }
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -37,4 +16,30 @@
     min-height: 100vh;
     height: 100vh;
   }
+}
+
+a,
+body,
+button,
+div,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+header,
+html,
+img,
+label,
+li,
+nav,
+p,
+select,
+span,
+table,
+textarea,
+ul {
+  @include scaffold-basis;
 }

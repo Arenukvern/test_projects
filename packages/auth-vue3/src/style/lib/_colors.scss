@@ -1,19 +1,52 @@
 $seashell: #fbf8f7;
 $coffee-bean: #37302a;
+@mixin coffee-bean-5-back {
+  background-color: rgba($coffee-bean, 0.05);
+}
+@mixin coffee-bean-2-back {
+  background-color: rgba($coffee-bean, 0.02);
+}
+@mixin coffee-bean-4-shadow-26 {
+  box-shadow: 0px 0px 26px 0px rgba($coffee-bean, 0.04);
+}
+@mixin coffee-bean-10-shadow-26 {
+  box-shadow: 0px 0px 26px 0px rgba($coffee-bean, 0.1);
+}
 
 .back {
-  &.color-seashell {
+  &-color-seashell {
     background-color: $seashell;
   }
-  &.color-coffee-bean {
+  &-color-coffee-bean {
     background-color: $coffee-bean;
   }
-}
-.text {
-  &.color-seashell {
-    color: $seashell;
+  &-transparent {
+    background-color: transparent;
   }
-  &.color-coffee-bean {
-    color: $coffee-bean;
+}
+
+@mixin hover-focus-color {
+  &:hover {
+    &.hover {
+      &-back-coffee-bean-2 {
+        @include coffee-bean-2-back;
+      }
+    }
+  }
+  &:focus {
+    &.focus {
+      &-shadow-26-coffee-bean-4 {
+        @include coffee-bean-4-shadow-26;
+      }
+      &-shadow-26-coffee-bean-4 {
+        @include coffee-bean-4-shadow-26;
+      }
+      &-shadow-26-coffee-bean-10 {
+        @include coffee-bean-10-shadow-26;
+      }
+      &-back-coffee-bean-5 {
+        @include coffee-bean-5-back;
+      }
+    }
   }
 }

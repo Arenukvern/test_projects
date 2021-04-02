@@ -1,0 +1,24 @@
+.transition {
+  &-duration {
+    &-04 {
+      transition-duration: 0.4s;
+    }
+  }
+  &-all {
+    transition-property: all;
+  }
+  &-easy {
+    transition-timing-function: ease;
+  }
+}
+@mixin hover-transitions {
+  &:hover {
+    &.hover {
+      &-scale {
+        &-12 {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}

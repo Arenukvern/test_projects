@@ -1,3 +1,4 @@
+@use '../lib/colors';
 @mixin _cross-center {
   vertical-align: middle;
 }
@@ -19,6 +20,12 @@
   &.center {
     @include _main-center;
     @include _cross-center;
+  }
+  &.color-seashell {
+    color: colors.$seashell;
+  }
+  &.color-coffee-bean {
+    color: colors.$coffee-bean;
   }
 }
 .h1 {

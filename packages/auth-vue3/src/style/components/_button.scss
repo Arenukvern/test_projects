@@ -1,3 +1,32 @@
+@use '../lib/colors';
+@use '../lib/transition';
+$height: 3rem;
 .button {
-  height: 3rem;
+  height: $height;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  outline: 0;
+  &.icon {
+    height: fit-content;
+  }
+  // height: fit-content;
+  @include colors.hover-focus-color;
+  @include transition.hover-transitions;
+
+  &.flat {
+    &-coffee-bean {
+      background-color: colors.$coffee-bean;
+      color: colors.$seashell;
+    }
+    &-transparent {
+      background-color: transparent;
+    }
+  }
+  & svg {
+    height: $height;
+    width: $height;
+  }
 }
