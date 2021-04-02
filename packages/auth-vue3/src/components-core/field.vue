@@ -1,6 +1,6 @@
 <template lang="pug">
 input(
-  type='text'
+  :type='"text"'
   class=`            
   h-2
   hover-back-coffee-bean-2

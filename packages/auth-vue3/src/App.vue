@@ -1,13 +1,13 @@
 <template lang="pug">
-img.absolute.b-0.l-0.z-0(src='./assets/tree.svg' alt="a tree" )
+img.absolute.b-0.l-0.z-0(:src='"./assets/tree.svg"' alt="a tree" )
 .grid.columns-1.rows-90p.h-full.relative.z-10
   .column.center
     .column.main-align-space-between.h-6
       p.text.center.h4 Welcome back
       .row.cross-align-center
         field.mr-4(placeholder='email')
-        icon-button()
-          img(src='./assets/send.svg')
+        icon-button
+          img(:src='"./assets/send.svg"')
   .row.cross-align-end
     styled-button.h5.border-top-right-corner-80(:isDark='true') Sign in
     styled-button.h5 Sign up
