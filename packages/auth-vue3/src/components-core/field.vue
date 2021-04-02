@@ -26,7 +26,7 @@
   import { FieldValidationCallbackGuard } from './field-i'
   enum Emits {
     'updateModelValue' = 'update:modelValue',
-    'updateIsValueValid' = 'update-is-valid-value',
+    'updateIsValueValid' = 'updateIsValueValid',
   }
   interface ThemeOptions {
     core: string

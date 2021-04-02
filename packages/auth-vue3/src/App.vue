@@ -23,11 +23,12 @@
             :validationCallback='emailValidator'
             :errorMessage='emailErrorMessage'
             :required='true'
+            @updateIsValueValid='isValid=>isEmailValid = isValid'
           )
             template(v-slot:suffix)
               transition(name="fade")
                 icon-button.ml-4(
-                  v-show='isSignIn'
+                  v-show='isSignIn && isEmailNotEmpty && isEmailValid'
                   @click='verifyEmail'
                 )
                   img(:src='"./assets/send.svg"')
@@ -40,11 +41,18 @@
               :validationCallback='passwordValidator'
               :errorMessage='passwordErrorMessage'
               :required='true'
+              @updateIsValueValid='isValid=>isPasswordValid = isValid'
             )
               template(v-slot:suffix)
                 transition(name="fade")
-                  icon-button.ml-4(v-show='isSignIn')
+                  icon-button.ml-4(v-show='isSignIn && isPasswordValid')
                     img(:src='"./assets/send.svg"')
+          transition(name="fade-1")
+            styled-button.h-2.border-radius-5(
+              v-show='isPasswordStep'
+              mainAlignClass="main-align-left cross-align-center"
+            ) 
+              .ml-4 Forgot password?
           transition(name="fade")
             field(
               v-show='isSignUp'
@@ -52,7 +60,7 @@
               type='password'
               v-model='confirmPassword'
               :validationCallback='confirmPasswordValidator'
-              :errorMessage='confirmPasswordErrorMessage'
+              errorMessage='Password doesn\'t match'
               :required='true'
             )
               template(v-slot:suffix)
@@ -78,6 +86,9 @@
   enum Mode {
     signin,
     signup,
+    authorized,
+    registered,
+    passwordRecovery,
   }
   enum SignInSteps {
     email,
@@ -87,6 +98,9 @@
     name: 'App',
     components: {
       Field: defineAsyncComponent(() => import('./components-core/field.vue')),
+      StyledButton: defineAsyncComponent(
+        () => import('./components-core/styled-button.vue')
+      ),
       IconButton: defineAsyncComponent(
         () => import('./components-core/icon-button.vue')
       ),
@@ -122,6 +136,8 @@
       })
 
       const email = ref('')
+      const isEmailNotEmpty = computed(() => email.value.length)
+      const isEmailValid = ref(false)
       const emailValidator: FieldValidationCallback = ({ value }) => {
         // according to spec:
         // https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
@@ -145,6 +161,13 @@
       const password = ref('')
       const passwordValidator: FieldValidationCallback = ({ value }) =>
         value.length > 4
+      const isPasswordValid = ref(false)
+
+      const isWrongPassword = ref(false)
+      const passwordErrorMessage = computed(() => {
+        if (isWrongPassword.value) return 'Wrong password. Please try another'
+        return 'Password must have at least 5 symbols'
+      })
 
       const confirmPassword = ref('')
       const confirmPasswordValidator: FieldValidationCallback = ({ value }) =>
@@ -155,11 +178,15 @@
         isEmailStep,
         welcome,
         email,
+        isEmailNotEmpty,
         emailValidator,
         emailErrorMessage,
+        isEmailValid,
+        passwordErrorMessage,
         verifyEmail,
         password,
         passwordValidator,
+        isPasswordValid,
         confirmPassword,
         confirmPasswordValidator,
         isSignIn,

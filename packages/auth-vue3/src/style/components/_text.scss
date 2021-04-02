@@ -16,6 +16,9 @@
     &-center {
       @include _main-center;
     }
+    &-left {
+      text-align: left;
+    }
   }
   &.center {
     @include _main-center;

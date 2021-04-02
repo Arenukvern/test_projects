@@ -20,6 +20,7 @@ button(
   }
   const coreClasses = `
     button
+    row
     
     w-full 
 
@@ -47,6 +48,11 @@ button(
         default: false,
         required: false,
       },
+      mainAlignClass: {
+        type: String,
+        default: 'center',
+        required: false,
+      },
     },
     emits: styledButtonEmits,
     setup(props, context) {
@@ -61,6 +67,7 @@ button(
           resolvedIconClass,
           resolvedScaleOnHoverClass,
           resolvedIsDark,
+          props.mainAlignClass,
         ].join(' ')
       })
 
