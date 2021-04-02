@@ -5,12 +5,11 @@ $height: 3rem;
   height: $height;
   cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: transparent;
   outline: 0;
   &.icon {
     height: fit-content;
+    width: fit-content;
   }
   // height: fit-content;
   @include colors.hover-focus-color;
@@ -20,6 +19,10 @@ $height: 3rem;
     &-coffee-bean {
       background-color: colors.$coffee-bean;
       color: colors.$seashell;
+    }
+    &-seashell {
+      background-color: colors.$seashell;
+      color: colors.$coffee-bean;
     }
     &-transparent {
       background-color: transparent;

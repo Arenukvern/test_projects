@@ -1,4 +1,6 @@
 @use '../lib/colors';
+@use '../lib/font';
+
 @mixin scaffold-basis {
   margin: 0;
   padding: 0;
@@ -6,9 +8,6 @@
   line-height: 1;
 }
 .scaffold {
-  &.color-coffee-bean {
-    color: colors.$coffee-bean;
-  }
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   .app {
@@ -42,4 +41,5 @@ table,
 textarea,
 ul {
   @include scaffold-basis;
+  @include font.font-redressed;
 }

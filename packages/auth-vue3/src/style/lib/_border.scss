@@ -7,8 +7,23 @@
     &-dashed {
       border-bottom-style: dashed;
     }
-    &-color-seashell {
+    &-color-coffee-bean {
       border-bottom-color: colors.$coffee-bean;
+    }
+    &-color-seashell {
+      border-bottom-color: colors.$seashell;
+    }
+    &-color-maroon {
+      border-bottom-color: colors.$maroon;
+    }
+    &-color-maroon {
+      border-bottom-color: colors.$maroon;
+    }
+    &-color-bottle-green {
+      border-bottom-color: colors.$bottle-green;
+    }
+    &-color-pigment-green {
+      border-bottom-color: colors.$pigment-green;
     }
   }
   &-top-right-corner {
@@ -16,7 +31,15 @@
       border-top-right-radius: 80px;
     }
   }
+  &-top-left-corner {
+    &-80 {
+      border-top-left-radius: 80px;
+    }
+  }
   &-radius-5 {
     border-radius: 5px;
+  }
+  &-radius-9 {
+    border-radius: 9px;
   }
 }

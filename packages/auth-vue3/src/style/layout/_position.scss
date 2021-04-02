@@ -22,18 +22,44 @@
   &-full {
     height: 100%;
   }
+  &-21 {
+    height: 21rem;
+  }
+  &-20 {
+    height: 20rem;
+  }
+  &-18 {
+    height: 18rem;
+  }
+  &-16 {
+    height: 16rem;
+  }
+  &-8 {
+    height: 8rem;
+  }
   &-6 {
     height: 6rem;
-  }
-  &-2 {
-    height: 2rem;
   }
   &-4 {
     height: 4rem;
   }
+  &-2 {
+    height: 2rem;
+  }
+  &-1 {
+    height: 1rem;
+  }
 }
-.w-full {
-  width: 100%;
+.w {
+  &-full {
+    width: 100%;
+  }
+  &-10 {
+    width: 10rem;
+  }
+  &-14 {
+    width: 14rem;
+  }
 }
 
 .grid {

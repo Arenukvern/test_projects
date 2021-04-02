@@ -1,12 +1,14 @@
 <template lang="pug">
 button(
   :class='resolvedClasses'
+  @click='click'
 )
   slot
 </template>
 
 <script lang="ts">
   import { computed, defineComponent } from 'vue'
+  import { styledButtonClick, styledButtonEmits } from './styled-button-i'
   const theme = {
     light: `
       hover-back-coffee-bean-2
@@ -18,6 +20,7 @@ button(
   }
   const coreClasses = `
     button
+    row
     
     w-full 
 
@@ -45,8 +48,14 @@ button(
         default: false,
         required: false,
       },
+      mainAlignClass: {
+        type: String,
+        default: 'center',
+        required: false,
+      },
     },
-    setup(props) {
+    emits: styledButtonEmits,
+    setup(props, context) {
       const resolvedClasses = computed(() => {
         const resolvedIconClass = props.hasIcon ? 'icon' : ''
         const resolvedScaleOnHoverClass = props.scaleOnHover
@@ -58,10 +67,11 @@ button(
           resolvedIconClass,
           resolvedScaleOnHoverClass,
           resolvedIsDark,
+          props.mainAlignClass,
         ].join(' ')
       })
 
-      return { resolvedClasses }
+      return { resolvedClasses, click: styledButtonClick({ context }) }
     },
   })
 </script>
