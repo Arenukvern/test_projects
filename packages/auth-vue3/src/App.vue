@@ -9,8 +9,8 @@ img.absolute.b-0.l-0.z-0(src='./assets/tree.svg' alt="a tree" )
         icon-button()
           img(src='./assets/send.svg')
   .row.cross-align-end
-    styled-button.border-top-right-corner-80(:isDark='true') Sign in
-    styled-button Sign up
+    styled-button.h5.border-top-right-corner-80(:isDark='true') Sign in
+    styled-button.h5 Sign up
 </template>
 
 <script lang="ts">
