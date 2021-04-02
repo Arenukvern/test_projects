@@ -1,7 +1,7 @@
 <template lang="pug">
 button(
   :class='resolvedClasses'
-  @click.prevent='click'
+  @click='click'
 )
   slot
 </template>

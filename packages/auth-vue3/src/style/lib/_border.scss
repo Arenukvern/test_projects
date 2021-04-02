@@ -7,8 +7,14 @@
     &-dashed {
       border-bottom-style: dashed;
     }
-    &-color-seashell {
+    &-color-coffee-bean {
       border-bottom-color: colors.$coffee-bean;
+    }
+    &-color-seashell {
+      border-bottom-color: colors.$seashell;
+    }
+    &-color-maroon {
+      border-bottom-color: colors.$maroon;
     }
   }
   &-top-right-corner {

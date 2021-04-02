@@ -2,7 +2,7 @@
 styled-button(
   :has-icon='true'
   :scale-on-hover='true'
-  @click.prevent='click'
+  @click='click'
 )
   slot
 </template>
