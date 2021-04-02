@@ -18,6 +18,8 @@
             :errorMessage='emailErrorMessage'
             :required='true'
             @updateIsValueValid='isValid=>isEmailValid = isValid'
+            :showErrorMessage='isWrongEmail && isSignUp'
+            :hightlightSuccess='isSignUp && !isWrongEmail && isEmailValid'
           )
             template(v-slot:suffix)
               transition(name="fade")
@@ -36,6 +38,7 @@
               :errorMessage='passwordErrorMessage'
               :required='true'
               @updateIsValueValid='isValid=>isPasswordValid = isValid'
+              :showErrorMessage='isWrongPassword'
             )
               template(v-slot:suffix)
                 transition(name="fade")
@@ -100,7 +103,9 @@
 
 <script lang="ts">
   import { computed, defineAsyncComponent, defineComponent, ref } from 'vue'
+  import { User } from './abstract'
   import { FieldValidationCallback } from './components-core/field-i'
+  import { UserModel } from './composable'
   enum Mode {
     signin,
     signup,
@@ -176,13 +181,20 @@
         )
         return r >= 0 && value.includes('.')
       }
-      const emailErrorMessage =
-        'please provide email in format: name@something.com'
+      const isEmailExists = computed(() =>
+        UserModel.isEmailExists({ email: email.value })
+      )
+      const isWrongEmail = computed(() => isSignUp.value && isEmailExists.value)
+
+      const emailErrorMessage = computed(() => {
+        if (isWrongEmail.value)
+          return 'this email already exists, try different'
+        return 'please provide email in format: name@something.com'
+      })
       const verifyEmail = () => {
-        //TODO: check is email exists
-        const isEmailExists = true
-        if (isEmailExists) {
+        if (isEmailExists.value) {
           currentSignInStep.value = SignInSteps.password
+          currentMode.value = Mode.signin
         } else {
           currentSignInStep.value = SignInSteps.email
           currentMode.value = Mode.signup
@@ -199,12 +211,17 @@
       // Validation from server request
       const isWrongPassword = ref(false)
       const passwordErrorMessage = computed(() => {
-        if (isWrongPassword.value) return 'Wrong password. Please try another'
-        return 'Password must have at least 5 symbols'
+        if (isWrongPassword.value) return 'wrong password, please try another'
+        return 'password must have at least 5 symbols'
+      })
+      const user = computed<User>(() => {
+        const usr: User = { email: email.value, password: password.value }
+        return usr
       })
       const confirmPassword = () => {
-        // TODO: check with local storage
-        const isAuthorized = true
+        const isAuthorized = UserModel.isPasswordValidForEmail({
+          user: user.value,
+        })
         if (isAuthorized) {
           isWrongPassword.value = false
           currentMode.value = Mode.authorized
@@ -226,10 +243,13 @@
         () =>
           isPasswordValid.value &&
           isPasswordConfirmationValid.value &&
-          isEmailValid
+          isEmailValid &&
+          !isEmailExists.value
       )
       const register = () => {
-        // TODO: write to local storage
+        UserModel.create({
+          user: user.value,
+        })
         currentMode.value = Mode.registered
       }
       return {
@@ -241,12 +261,14 @@
         emailValidator,
         emailErrorMessage,
         isEmailValid,
-        passwordErrorMessage,
+        isWrongEmail,
         verifyEmail,
         password,
+        passwordErrorMessage,
         passwordValidator,
         isPasswordValid,
         confirmPassword,
+        isWrongPassword,
         passwordConfirmation,
         passwordConfirmationValidator,
         isPasswordConfirmationValid,

@@ -31,6 +31,7 @@
   interface ThemeOptions {
     core: string
     error: string
+    success: string
     default: string
     background: string
   }
@@ -56,12 +57,14 @@
     light: {
       core: coreClasses,
       error: 'border-bottom-color-maroon',
+      success: 'border-bottom-color-pigment-green',
       default: 'border-bottom-color-coffee-bean',
       background: 'back-color-seashell',
     },
     dark: {
       core: coreClasses,
       error: 'border-bottom-color-maroon',
+      success: 'border-bottom-color-pigment-green',
       default: `border-bottom-color-seashell`,
       background: 'back-color-coffee-bean',
     },
@@ -104,6 +107,16 @@
         default: 'wrong value',
         required: false,
       },
+      showErrorMessage: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
+      hightlightSuccess: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
     },
     emits: [Emits.updateModelValue, Emits.updateIsValueValid],
     setup(props, context) {
@@ -116,7 +129,9 @@
       })
 
       const isValCorrect = ref(true)
-      const isValNotCorrect = computed(() => !isValCorrect.value)
+      const isValNotCorrect = computed(
+        () => !isValCorrect.value || props.showErrorMessage
+      )
       watch(val, () => {
         const isValid = validateField({ value: val.value })
         isValCorrect.value = isValid
@@ -127,7 +142,9 @@
         const currentThemeName = props.isDark ? 'dark' : 'light'
         const currentTheme = theme[currentThemeName]
         const resolvedBorderClass = isValCorrect.value
-          ? currentTheme.default
+          ? props.hightlightSuccess
+            ? currentTheme.success
+            : currentTheme.default
           : currentTheme.error
         return [
           currentTheme.core,
