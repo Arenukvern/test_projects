@@ -1,0 +1,39 @@
+.tab-sheet {
+  width: 100%;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  overflow-x: auto;
+  font-family: monospace;
+
+  &__content {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+
+.measure {
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+
+  &--active {
+    background-color: rgba(255, 255, 0, 0.2);
+    transform: scale(1.05);
+    // The height will be implicitly larger due to content and padding,
+    // but we can enforce it if needed.
+    position: relative; // Needed for cursor positioning
+  }
+}
+
+.cursor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: red;
+  // to be safe against overflow
+  transform: translateX(-50%);
+}

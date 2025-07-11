@@ -1,0 +1,43 @@
+---
+description: This document outlines the architecture and development principles for this project. It's a living document that should be updated as the project evolves.
+globs:
+alwaysApply: true
+---
+
+# Project Vision: Guitar Tabs Audio Player
+
+This document outlines the architecture and development principles for this project. It's a living document that should be updated as the project evolves.
+
+## 1. Core Technologies
+
+- **Framework:** [Preact with TypeScript](mdc:package.json).
+- **Styling:** [SCSS with BEM](mdc:src/assets/scss/main.scss).
+- **Build Tool:** [Vite](mdc:vite.config.ts).
+
+## 2. Architecture & Philosophy
+
+The architecture is modular and component-based, emphasizing small, reusable components.
+
+- **State Management:** A centralized state is managed using Preact's native `createContext` and `useContext` hooks. The global state, defined in [`AppContext.tsx`](mdc:src/context/AppContext.tsx), handles playback status, video time, and tab data.
+
+- **Styling:** SCSS is organized using BEM. The main entry point is [`main.scss`](mdc:src/assets/scss/main.scss), which imports from the following directories:
+  - `base/`: Global styles, resets, typography.
+  - `components/`: Styles for each Preact component.
+  - `layout/`: Major layout structures.
+  - `utils/`: Shared utilities like variables and mixins.
+
+## 3. Core Components
+
+- **[`App`](mdc:src/app.tsx):** The root component, responsible for the overall layout.
+- **[`Player`](mdc:src/components/Player/index.tsx):** A wrapper around the YouTube IFrame Player.
+- **[`TabSheet`](mdc:src/components/TabSheet/index.tsx):** Displays the parsed guitar tablature and highlights the active measure.
+- **[`Controls`](mdc:src/components/Controls/index.tsx):** Contains user-facing controls like play/pause and the seek bar.
+
+## 4. Synchronization Mechanism
+
+- **`syncPoints`:** A typed data structure (`{ time: number; measure: number }`) maps video timestamps to tab measures. This is defined in [`AppContext.tsx`](mdc:src/context/AppContext.tsx).
+- **Data Flow:** The `Player` reports `currentTime` to the context. The `TabSheet` listens for updates and highlights the correct part of the tablature.
+
+## 5. Utilities
+
+- **Tab Parsing:** A simple text-based tab parser in [`tab-parser.ts`](mdc:src/utils/tab-parser.ts) converts raw tab strings into a structured format.

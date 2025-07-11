@@ -1,0 +1,11 @@
+.player {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+
+  iframe {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16 / 9;
+  }
+}
