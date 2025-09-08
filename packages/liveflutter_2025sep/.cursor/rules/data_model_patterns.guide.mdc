@@ -1,0 +1,46 @@
+---
+description: 
+globs: *.dart
+alwaysApply: false
+---
+
+Our application's data models are designed using Dart's `extension type` feature for creating lightweight, immutable, data-centric objects. This pattern ensures type safety and performance while providing a consistent structure for serialization and manipulation.
+
+### Core Principles
+
+1.  **Immutable by Default:** Models are wrappers around a `Map<String, dynamic>` and are treated as immutable. Changes are made by creating new instances, typically via a `copyWith` method.
+2.  **Type-Safe Access:** Getters provide type-safe access to the underlying map data, using helpers from the `from_json_to_json` package (e.g., `jsonDecodeString`, `jsonDecodeListAs`).
+3.  **File-System Aware:** Models that represent a file on disk must include a `FilePathConfig` to manage their location and access permissions. See `[CharacterFile](mdc:lib/data_models/character_models/character_file_model.dart)` for an example.
+4.  **Centralized Definitions:** All models are exported through `[data_models.dart](mdc:lib/data_models/data_models.dart)`.
+
+### Standard Model Structure
+
+When creating or modifying a data model, follow this structure:
+
+1.  **Declaration:**
+
+    ```dart
+    extension type const ModelName(Map<String, dynamic> value) {
+      // ... implementation
+    }
+    ```
+
+2.  **Constructors:**
+
+    - **`fromJson(dynamic jsonData)`:** A factory to parse JSON data (string or map) into a model instance. For file-based models, it should accept a required `FilePathConfig`.
+    - **`create(...)`:** A factory for programmatically building a new, valid instance with required fields.
+
+3.  **Field Accessors:**
+
+    - Implement getters for each property in the `Map`.
+    - Use `jsonDecode...` helpers for safe type casting.
+
+4.  **Serialization:**
+
+    - **`toJson()`:** A method that returns the underlying `Map<String, dynamic>` value for serialization.
+
+5.  **Utility Members:**
+    - **`copyWith(...)`:** If the model needs to be mutable, provide a `copyWith` method that returns a new instance with updated values.
+    - **`static const empty`:** A static constant providing a default, empty instance of the model.
+
+When working with data models, adhere strictly to these patterns to maintain consistency, type safety, and ease of maintenance across the codebase.
