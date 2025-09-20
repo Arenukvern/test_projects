@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:carflutter_2025sep/common_imports.dart';
 import 'package:carflutter_2025sep/data_listeners/data_listeners.dart';
 
@@ -29,12 +27,7 @@ class _UiHomeScreenState extends State<UiHomeScreen>
     clientApi
       ..addListener(VehicleListener())
       ..pingReady();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    unawaited(Di.instance.dispose());
+    gameStatusResource.value = GameStatus.loaded;
   }
 
   @override

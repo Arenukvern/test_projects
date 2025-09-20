@@ -1,3 +1,2 @@
-class Fonts {
-  static const String halvarEng = 'HalvarEng';
-}
+export 'app_colors.dart';
+export 'app_fonts.dart';

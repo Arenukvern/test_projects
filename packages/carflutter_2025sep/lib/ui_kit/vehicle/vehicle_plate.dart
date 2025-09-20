@@ -1,4 +1,5 @@
 import 'package:carflutter_2025sep/core/core.dart';
+import 'package:carflutter_2025sep/ui_kit/theme/theme.dart';
 import 'package:carflutter_2025sep/ui_kit/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -43,7 +44,7 @@ class CarPlate extends StatelessWidget {
                   child: Text(
                     'A123BC',
                     style: TextStyle(
-                      fontFamily: Fonts.halvarEng,
+                      fontFamily: AppFonts.halvarEng,
                       fontWeight: FontWeight.w500,
                       letterSpacing: scaleSize(1.2, 3.2),
                       height: .94,
@@ -77,7 +78,7 @@ class CarPlate extends StatelessWidget {
                   child: Text(
                     'A123BC',
                     style: TextStyle(
-                      fontFamily: Fonts.halvarEng,
+                      fontFamily: AppFonts.halvarEng,
                       fontWeight: FontWeight.w500,
                       letterSpacing: scaleSize(1.2, 3.2),
                       height: .94,
@@ -95,7 +96,7 @@ class CarPlate extends StatelessWidget {
                   child: Text(
                     '02',
                     style: TextStyle(
-                      fontFamily: Fonts.halvarEng,
+                      fontFamily: AppFonts.halvarEng,
                       fontWeight: FontWeight.w500,
                       letterSpacing: scaleSize(1.2, 3.2),
                       height: .94,
@@ -129,7 +130,7 @@ class CarPlate extends StatelessWidget {
                   child: Text(
                     'AA1234BB',
                     style: TextStyle(
-                      fontFamily: Fonts.halvarEng,
+                      fontFamily: AppFonts.halvarEng,
                       fontWeight: FontWeight.w500,
                       letterSpacing: scaleSize(1.2, 3.2),
                       height: .94,
@@ -161,7 +162,7 @@ class CarPlate extends StatelessWidget {
                 child: Text(
                   'ABC-1234',
                   style: TextStyle(
-                    fontFamily: Fonts.halvarEng,
+                    fontFamily: AppFonts.halvarEng,
                     fontWeight: FontWeight.w500,
                     letterSpacing: scaleSize(1.2, 3.2),
                     height: .94,
@@ -187,7 +188,7 @@ class CarPlate extends StatelessWidget {
                 child: Text(
                   'НОМЕРА НЕТ',
                   style: TextStyle(
-                    fontFamily: Fonts.halvarEng,
+                    fontFamily: AppFonts.halvarEng,
                     fontWeight: FontWeight.w500,
                     letterSpacing: scaleSize(0.7, 1.8), // 10% of font size
                     height: .94,
@@ -220,7 +221,7 @@ class CarPlate extends StatelessWidget {
                   child: Text(
                     'A123BC',
                     style: TextStyle(
-                      fontFamily: Fonts.halvarEng,
+                      fontFamily: AppFonts.halvarEng,
                       fontWeight: FontWeight.w500,
                       letterSpacing: scaleSize(1.2, 3.2),
                       height: .94,
@@ -237,7 +238,7 @@ class CarPlate extends StatelessWidget {
                   child: Text(
                     '777',
                     style: TextStyle(
-                      fontFamily: Fonts.halvarEng,
+                      fontFamily: AppFonts.halvarEng,
                       letterSpacing: scaleSize(0.4, 1.05),
                       height: .94,
                       fontWeight: FontWeight.w500,

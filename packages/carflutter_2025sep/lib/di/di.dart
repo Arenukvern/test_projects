@@ -23,9 +23,8 @@ class Di {
   Di._();
   static Di get instance => _implementation;
   static final Di _implementation = Di._();
-  final _getIt = GetIt.instance;
-  late final _rl = _getIt.registerLazySingleton;
-  late final _g = _getIt.get;
+  late final _rl = GetIt.instance.registerLazySingleton;
+  late final _g = GetIt.instance.get;
 
   void register() {
     _rl(GameStatusResources.new, dispose: _disposabler);
@@ -34,7 +33,7 @@ class Di {
     _rl<ClientApi>(ClientApiMock.new, dispose: (final d) => d.dispose());
   }
 
-  Future<void> dispose() => _getIt.reset();
+  Future<void> dispose() => GetIt.instance.reset();
 }
 
 mixin ResourcesMixin {

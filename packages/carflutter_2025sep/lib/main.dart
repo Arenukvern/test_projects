@@ -1,4 +1,6 @@
 import 'package:carflutter_2025sep/common_imports.dart';
+import 'package:carflutter_2025sep/ui_kit/theme/app_colors.dart';
+import 'package:carflutter_2025sep/ui_kit/theme/app_fonts.dart';
 
 void main() {
   Di.instance.register();
@@ -12,9 +14,11 @@ class MyApp extends StatelessWidget {
   Widget build(final BuildContext context) => DiProvider(
     builder: (final context) => MaterialApp.router(
       title: 'Car Flutter',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.seedColor),
+        textTheme: Typography.material2021().englishLike.apply(
+          fontFamily: AppFonts.halvarEng,
+        ),
       ),
       routerConfig: appRouter,
     ),
@@ -30,6 +34,7 @@ class DiProvider extends StatelessWidget with ResourcesMixin {
     const p = ChangeNotifierProvider.value;
     return MultiProvider(
       providers: [
+        p(value: currentVehicleIdResource),
         p(value: gameStatusResource),
         p(value: vehiclesResource),
       ],

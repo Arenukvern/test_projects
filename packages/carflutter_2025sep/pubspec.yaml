@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  blur: ^4.0.2
   collection: ^1.19.1
 
   # The following adds the Cupertino Icons font to your application.
@@ -64,6 +65,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+    - assets/icons/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
