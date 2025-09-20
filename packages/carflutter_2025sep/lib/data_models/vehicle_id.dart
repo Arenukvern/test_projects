@@ -9,5 +9,7 @@ extension type const VehicleId(String value) {
   factory VehicleId.fromJson(final dynamic json) =>
       VehicleId(jsonDecodeString(json));
 
+  bool get isEmpty => value.isEmpty;
+
   static const empty = VehicleId('');
 }

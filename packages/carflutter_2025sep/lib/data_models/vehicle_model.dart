@@ -116,4 +116,30 @@ extension type const Vehicle._(Map<String, dynamic> value) {
 
   /// Empty [Vehicle] for initialization.
   static const empty = Vehicle._({});
+
+  Vehicle copyWith({
+    final VehicleId? id,
+    final String? imageName,
+    final String? number,
+    final String? region,
+    final String? country,
+    final String? model,
+    final int? mileage,
+    final int? fuel,
+    final VehicleStatus? status,
+    final int? price,
+    final int? leftTime,
+  }) => Vehicle(
+    id: id ?? this.id,
+    imageName: imageName ?? this.imageName,
+    number: number ?? this.number,
+    region: region ?? this.region,
+    country: country ?? this.country,
+    model: model ?? this.model,
+    mileage: mileage ?? this.mileage,
+    fuel: fuel ?? this.fuel,
+    status: status ?? this.status,
+    price: price ?? this.price,
+    leftTime: leftTime ?? this.leftTime,
+  );
 }

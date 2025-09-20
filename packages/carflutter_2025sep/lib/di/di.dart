@@ -1,7 +1,8 @@
 // ignore_for_file: avoid_annotating_with_dynamic
 
-import 'package:carflutter_2025sep/data_resources/game_status.src.dart';
-import 'package:carflutter_2025sep/data_resources/vehicles.src.dart';
+import 'package:carflutter_2025sep/data_listeners/client_api.dart';
+import 'package:carflutter_2025sep/data_resources/data_resources.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 
 T _g<T extends Object>({
@@ -16,46 +17,32 @@ T _g<T extends Object>({
   type: type,
 );
 
-void _r<T extends Object>(
-  final T instance, {
-  final String? instanceName,
-  final bool? signalsReady,
-  final DisposingFunc<T>? dispose,
-}) => Di._implementation._r<T>(
-  instance,
-  instanceName: instanceName,
-  signalsReady: signalsReady,
-  dispose: dispose,
-);
-
-void _rl<T extends Object>(
-  final FactoryFunc<T> factoryFunc, {
-  final String? instanceName,
-  final DisposingFunc<T>? dispose,
-  final bool useWeakReference = false,
-}) => Di._implementation._rl<T>(
-  factoryFunc,
-  instanceName: instanceName,
-  dispose: dispose,
-  useWeakReference: useWeakReference,
-);
+void _disposabler(final ChangeNotifier d) => d.dispose();
 
 class Di {
-  factory Di() => _implementation;
   Di._();
+  static Di get instance => _implementation;
   static final Di _implementation = Di._();
   final _getIt = GetIt.instance;
-  late final _r = _getIt.registerSingleton;
   late final _rl = _getIt.registerLazySingleton;
   late final _g = _getIt.get;
 
   void register() {
-    _rl(GameStatusResources.new);
-    _rl(VehiclesResource.new);
+    _rl(GameStatusResources.new, dispose: _disposabler);
+    _rl(VehiclesResource.new, dispose: _disposabler);
+    _rl(CurrentVehicleIdResource.new, dispose: _disposabler);
+    _rl<ClientApi>(ClientApiMock.new, dispose: (final d) => d.dispose());
   }
+
+  Future<void> dispose() => _getIt.reset();
 }
 
 mixin ResourcesMixin {
   VehiclesResource get vehiclesResource => _g<VehiclesResource>();
   GameStatusResources get gameStatusResource => _g<GameStatusResources>();
+  CurrentVehicleIdResource get currentVehicleIdResource =>
+      _g<CurrentVehicleIdResource>();
+}
+mixin ApiMixin {
+  ClientApi get clientApi => _g<ClientApi>();
 }

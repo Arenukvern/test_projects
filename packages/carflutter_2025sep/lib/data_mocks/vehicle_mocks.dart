@@ -1,5 +1,5 @@
-class CarsMocks {
-  static const String carList = '''
+class DataMocks {
+  static const String vehicleList = '''
   [
     {
       "id": 1,

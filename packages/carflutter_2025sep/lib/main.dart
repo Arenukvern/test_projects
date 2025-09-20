@@ -1,21 +1,22 @@
-import 'package:carflutter_2025sep/di/di.dart';
-import 'package:carflutter_2025sep/ui_vehicle_room/ui_vehicle_room_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:carflutter_2025sep/common_imports.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  Di.instance.register();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(final BuildContext context) => DiProvider(
-    builder: (final context) => MaterialApp(
-      title: 'Flutter Demo',
+    builder: (final context) => MaterialApp.router(
+      title: 'Car Flutter',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      home: const UiVehicleRoomScreen(),
+      routerConfig: appRouter,
     ),
   );
 }

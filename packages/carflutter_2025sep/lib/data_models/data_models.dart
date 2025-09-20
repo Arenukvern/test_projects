@@ -4,6 +4,7 @@
 /// making it easier to import multiple models in other parts of the application.
 library;
 
+export 'user_interface_uid.dart';
 export 'vehicle_id.dart';
 export 'vehicle_model.dart';
 export 'vehicle_status_update.dart';
