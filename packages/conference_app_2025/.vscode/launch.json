@@ -6,18 +6,18 @@
   "configurations": [
     
     {
-      "name": "carflutter_2025sep",
+      "name": "app",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "carflutter_2025sep (profile mode)",
+      "name": "app (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "carflutter_2025sep (release mode)",
+      "name": "app (release mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"

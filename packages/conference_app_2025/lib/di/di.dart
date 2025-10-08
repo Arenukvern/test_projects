@@ -10,7 +10,7 @@ T _g<T extends Object>({
   final dynamic param2,
   final String? instanceName,
   final Type? type,
-}) => Di._implementation.get<T>(
+}) => Di._implementation._get<T>(
   param1: param1,
   param2: param2,
   instanceName: instanceName,
@@ -24,19 +24,7 @@ class Di {
   static Di get instance => _implementation;
   static final Di _implementation = Di._();
   late final _rl = GetIt.instance.registerLazySingleton;
-
-  /// Get a registered dependency
-  T get<T extends Object>({
-    final dynamic param1,
-    final dynamic param2,
-    final String? instanceName,
-    final Type? type,
-  }) => GetIt.instance.get<T>(
-    param1: param1,
-    param2: param2,
-    instanceName: instanceName,
-    type: type,
-  );
+  late final _get = GetIt.instance.get;
 
   void register() {
     _rl<StreamingClientApi>(
@@ -46,6 +34,7 @@ class Di {
     _rl<ConferenceApiI>(ConferenceApiMockImpl.new);
     _rl<ConferenceTagsApiI>(ConferenceTagsApiMockImpl.new);
     _rl<SpeakerApiI>(SpeakerApiMockImpl.new);
+    _rl(AppStatusResource.new, dispose: _disposabler);
     _rl(MyConferencesResource.new, dispose: _disposabler);
     _rl(ConferenceTagsResource.new, dispose: _disposabler);
     _rl(SpeakersResource.new, dispose: _disposabler);
@@ -57,6 +46,7 @@ class Di {
 }
 
 mixin HasResources {
+  AppStatusResource get appStatusResource => _g();
   MyConferencesResource get myConferencesResource => _g();
   ConferenceTagsResource get conferenceTagsResource => _g();
   SpeakersResource get speakersResource => _g();
