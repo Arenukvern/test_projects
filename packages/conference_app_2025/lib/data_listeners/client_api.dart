@@ -1,10 +1,14 @@
+// ignore_for_file: avoid_annotating_with_dynamic
+
 import 'dart:async';
-import 'dart:developer' as developer;
 
 import 'package:flutter/widgets.dart';
 
+typedef ClientApiData = dynamic;
+
+// ignore: one_member_abstracts
 abstract interface class ClientApiListener {
-  void onServerData(final ServerToClientAction actionId, [final String? data]);
+  void onServerData(final dynamic data);
 }
 
 abstract base class ClientApi {
@@ -13,21 +17,20 @@ abstract base class ClientApi {
   final _streamController = StreamController<ClientApiData>.broadcast();
   final _listeners = <ClientApiListener>{};
 
-  void pingReady() {}
+  void init() {
+    _streamController.stream.listen(onServerData);
+  }
 
   @mustCallSuper
-  void onServerData(final ServerToClientAction actionId, [final String? data]) {
-    _streamController.add((actionId: actionId, data: data));
+  void onServerData(final dynamic data) {
     for (final listener in _listeners) {
-      listener.onServerData(actionId, data);
+      listener.onServerData(data);
     }
   }
 
-  Stream<ClientApiData> get stream => _streamController.stream;
-
-  void dispose() {
+  Future<void> dispose() async {
     _listeners.clear();
-    unawaited(_streamController.close());
+    await _streamController.close();
   }
 
   void addListener(final ClientApiListener listener) {

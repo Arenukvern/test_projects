@@ -9,7 +9,8 @@ import 'package:go_router/go_router.dart';
 /// {@endtemplate}
 enum AppRoute {
   /// Home screen route
-  home('/home', 'home');
+  root('/', 'root'),
+  splash('/splash', 'splash');
 
   /// {@macro app_route}
   const AppRoute(this.path, this.name);

@@ -1,6 +1,5 @@
 import 'package:conference_app_2025/common_imports.dart';
 import 'package:conference_app_2025/ui_home/ui_home_screen.dart';
-import 'package:conference_app_2025/ui_vehicle/ui_vehicle_room_screen.dart';
 import 'package:go_router/go_router.dart';
 
 /// {@template app_router}
@@ -11,11 +10,16 @@ import 'package:go_router/go_router.dart';
 /// hardcoded string errors and ensure type safety.
 /// {@endtemplate}
 final appRouter = GoRouter(
-  initialLocation: AppRoute.home.path,
+  initialLocation: AppRoute.splash.path,
   routes: [
     GoRoute(
-      path: AppRoute.home.path,
-      name: AppRoute.home.name,
+      path: AppRoute.splash.path,
+      name: AppRoute.splash.name,
+      builder: (final context, final state) => const UiSplashScreen(),
+    ),
+    GoRoute(
+      path: AppRoute.root.path,
+      name: AppRoute.root.name,
       builder: (final context, final state) => const UiHomeScreen(),
     ),
   ],

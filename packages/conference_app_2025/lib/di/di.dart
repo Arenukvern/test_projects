@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_annotating_with_dynamic
 
+import 'package:conference_app_2025/common_imports.dart';
 import 'package:conference_app_2025/data_listeners/client_api.dart';
-import 'package:conference_app_2025/data_resources/data_resources.dart';
 import 'package:get_it/get_it.dart';
 
 T _g<T extends Object>({
@@ -26,21 +26,13 @@ class Di {
   late final _g = GetIt.instance.get;
 
   void register() {
-    _rl(GameStatusResources.new, dispose: _disposabler);
-    _rl(VehiclesResource.new, dispose: _disposabler);
-    _rl(CurrentVehicleIdResource.new, dispose: _disposabler);
     _rl<ClientApi>(ClientApiMock.new, dispose: (final d) => d.dispose());
   }
 
   Future<void> dispose() => GetIt.instance.reset();
 }
 
-mixin ResourcesMixin {
-  VehiclesResource get vehiclesResource => _g<VehiclesResource>();
-  GameStatusResources get gameStatusResource => _g<GameStatusResources>();
-  CurrentVehicleIdResource get currentVehicleIdResource =>
-      _g<CurrentVehicleIdResource>();
-}
+mixin ResourcesMixin {}
 mixin ApiMixin {
   ClientApi get clientApi => _g<ClientApi>();
 }
