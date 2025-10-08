@@ -135,6 +135,9 @@ extension type const ConferenceSession._(Map<String, dynamic> value) {
   /// Converts the model to JSON.
   Map<String, dynamic> toJson() => value;
 
+  bool get isEmpty => id.isEmpty;
+  bool get isNotEmpty => id.isNotEmpty;
+
   /// An empty session model.
   static const empty = ConferenceSession._({});
 }

@@ -10,7 +10,21 @@ import 'package:go_router/go_router.dart';
 enum AppRoute {
   /// Home screen route
   root('/', 'root'),
-  splash('/splash', 'splash');
+
+  /// Splash screen route
+  splash('/splash', 'splash'),
+
+  /// All conferences screen route
+  allConferences('/conferences', 'allConferences'),
+
+  /// Conference details screen route with :id parameter
+  conferenceDetails('/conferences/:id', 'conferenceDetails'),
+
+  /// My schedule screen route
+  mySchedule('/schedule', 'mySchedule'),
+
+  /// Profile/settings screen route
+  profile('/profile', 'profile');
 
   /// {@macro app_route}
   const AppRoute(this.path, this.name);

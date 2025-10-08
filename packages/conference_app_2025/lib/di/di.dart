@@ -2,6 +2,7 @@
 
 import 'package:conference_app_2025/common_imports.dart';
 import 'package:conference_app_2025/data_api/data_api.dart';
+import 'package:conference_app_2025/data_commands/data_commands.dart';
 import 'package:conference_app_2025/data_listeners/streaming_client_api.dart';
 import 'package:get_it/get_it.dart';
 
@@ -10,7 +11,7 @@ T _g<T extends Object>({
   final dynamic param2,
   final String? instanceName,
   final Type? type,
-}) => Di._implementation._g<T>(
+}) => Di._implementation.get<T>(
   param1: param1,
   param2: param2,
   instanceName: instanceName,
@@ -24,7 +25,19 @@ class Di {
   static Di get instance => _implementation;
   static final Di _implementation = Di._();
   late final _rl = GetIt.instance.registerLazySingleton;
-  late final _g = GetIt.instance.get;
+
+  /// Get a registered dependency
+  T get<T extends Object>({
+    final dynamic param1,
+    final dynamic param2,
+    final String? instanceName,
+    final Type? type,
+  }) => GetIt.instance.get<T>(
+    param1: param1,
+    param2: param2,
+    instanceName: instanceName,
+    type: type,
+  );
 
   void register() {
     _rl<StreamingClientApi>(
@@ -36,27 +49,30 @@ class Di {
     _rl(ConferenceTagsResource.new, dispose: _disposabler);
     _rl(SpeakersResource.new, dispose: _disposabler);
     _rl(TextScaleResource.new, dispose: _disposabler);
-    _rl(
-      () => AllConferencesResource(
-        requestBuilder:
-            AllConferencesPagingControllerRequestsBuilder.allConferences(
-              conferenceApi: _g(),
-            ),
-      ),
-      dispose: (final d) => d.dispose(),
-    );
+    _rl(ThemeBrightnessResource.new, dispose: _disposabler);
+    // Commands
+    _rl(() => AddConferenceToScheduleCommand(myConferencesResource: _g()));
+    _rl(() => RemoveConferenceFromScheduleCommand(myConferencesResource: _g()));
   }
 
   Future<void> dispose() => GetIt.instance.reset();
 }
 
-mixin ResourcesMixin {
+mixin HasResources {
   MyConferencesResource get myConferencesResource => _g();
   ConferenceTagsResource get conferenceTagsResource => _g();
   SpeakersResource get speakersResource => _g();
   TextScaleResource get textScaleResource => _g();
+  ThemeBrightnessResource get themeBrightnessResource => _g();
 }
 
-mixin ApiMixin {
+mixin HasCommands {
+  AddConferenceToScheduleCommand get addConferenceToScheduleCommand => _g();
+  RemoveConferenceFromScheduleCommand get removeConferenceFromScheduleCommand =>
+      _g();
+}
+
+mixin HasApi {
   StreamingClientApi get clientApi => _g<StreamingClientApi>();
+  ConferenceApiI get conferenceApi => _g<ConferenceApiI>();
 }

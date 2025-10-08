@@ -48,6 +48,7 @@ dependencies:
   # Routing
   go_router: ^14.3.0
   gradient_borders: ^1.0.2
+  infinite_scroll_pagination: ^5.1.1
   is_dart_empty_or_not: ^0.2.3
   provider: ^6.1.5+1
   xsoulspace_state_utils: ^0.3.2

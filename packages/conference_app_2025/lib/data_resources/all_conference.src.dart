@@ -13,9 +13,15 @@ class AllConferencesPagingControllerRequestsBuilder
     extends PagingControllerRequestsBuilder<ConferenceSession> {
   AllConferencesPagingControllerRequestsBuilder({required super.onLoadData});
 
-  factory AllConferencesPagingControllerRequestsBuilder.allConferences({
+  factory AllConferencesPagingControllerRequestsBuilder.filteredConferences({
     required final ConferenceApiI conferenceApi,
+    required final Set<ConferenceTag> selectedTags,
+    required final String searchQuery,
   }) => AllConferencesPagingControllerRequestsBuilder(
-    onLoadData: conferenceApi.getPaginatedConferences,
+    onLoadData: (final page) => conferenceApi.getPaginatedConferences(
+      page: page,
+      selectedTags: selectedTags,
+      searchQuery: searchQuery,
+    ),
   );
 }

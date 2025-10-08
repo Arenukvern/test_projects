@@ -35,9 +35,10 @@ enum UiMultichipsSelectionMode {
 /// )
 /// ```
 /// {@endtemplate}
-class UiMultichipsRow extends StatelessWidget {
+class UiMultichipsRow<T> extends StatelessWidget {
   /// {@macro ui_multichips_row}
   const UiMultichipsRow({
+    required this.labelBuilder,
     required this.items,
     required this.selectedItems,
     required this.onSelectionChanged,
@@ -46,14 +47,16 @@ class UiMultichipsRow extends StatelessWidget {
     super.key,
   });
 
+  final String Function(T) labelBuilder;
+
   /// List of chip labels
-  final List<String> items;
+  final List<T> items;
 
   /// Currently selected item labels
-  final Set<String> selectedItems;
+  final Set<T> selectedItems;
 
   /// Callback when selection changes
-  final ValueChanged<Set<String>> onSelectionChanged;
+  final ValueChanged<Set<T>> onSelectionChanged;
 
   /// Selection mode (single or multiple)
   final UiMultichipsSelectionMode selectionMode;
@@ -61,8 +64,8 @@ class UiMultichipsRow extends StatelessWidget {
   /// Spacing between chips
   final double spacing;
 
-  void _handleChipTap(final String item) {
-    final newSelection = Set<String>.from(selectedItems);
+  void _handleChipTap(final T item) {
+    final newSelection = Set<T>.from(selectedItems);
 
     if (selectionMode == UiMultichipsSelectionMode.single) {
       if (newSelection.contains(item)) {
@@ -90,7 +93,7 @@ class UiMultichipsRow extends StatelessWidget {
       children: [
         for (var i = 0; i < items.length; i++) ...[
           UiChip(
-            label: items[i],
+            label: labelBuilder(items[i]),
             selected: selectedItems.contains(items[i]),
             onSelected: (_) => _handleChipTap(items[i]),
           ),

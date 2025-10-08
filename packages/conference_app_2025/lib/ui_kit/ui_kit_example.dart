@@ -109,6 +109,7 @@ class _UiKitExampleScreenState extends State<UiKitExampleScreen> {
         ),
         const SizedBox(height: 8),
         UiMultichipsRow(
+          labelBuilder: (final item) => item,
           items: const ['Flutter', 'Dart', 'Firebase', 'Android', 'iOS'],
           selectedItems: _selectedChips,
           selectionMode: UiMultichipsSelectionMode.multiple,

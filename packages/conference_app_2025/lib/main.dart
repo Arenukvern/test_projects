@@ -11,11 +11,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => DiProvider(
-    builder: (final context) => MaterialApp.router(
-      title: 'Conference App 2025',
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
-      routerConfig: appRouter,
-    ),
+    builder: (final context) {
+      final themeMode = context.watch<ThemeBrightnessResource>().value;
+
+      return MaterialApp.router(
+        title: 'Conference App 2025',
+        theme: AppTheme.light(),
+        darkTheme: AppTheme.dark(),
+        themeMode: themeMode,
+        routerConfig: appRouter,
+      );
+    },
   );
 }
