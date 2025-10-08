@@ -4,11 +4,6 @@ import 'package:xsoulspace_state_utils/xsoulspace_state_utils.dart';
 export 'all_conference.src.dart';
 export 'text_scale.src.dart';
 
-class MyConferencesResource
-    extends OrderedMapNotifier<ConferenceSessionId, ConferenceSession> {
-  MyConferencesResource() : super(toKey: (final session) => session.id);
-}
-
 class ConferenceTagsResource
     extends OrderedMapNotifier<ConferenceTag, ConferenceTag> {
   ConferenceTagsResource() : super(toKey: (final tag) => tag);
