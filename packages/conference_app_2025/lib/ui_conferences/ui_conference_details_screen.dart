@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:conference_app_2025/common_imports.dart';
 import 'package:conference_app_2025/data_api/data_api.dart';
+import 'package:conference_app_2025/data_commands/data_commands.dart';
 
 /// {@template ui_conference_details_screen}
 /// Screen displaying detailed information about a conference session.
@@ -26,7 +27,7 @@ class UiConferenceDetailsScreen extends StatefulWidget {
 }
 
 class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
-    with HasResources, HasCommands {
+    with HasResources {
   ConferenceSession? _session;
   bool _isLoading = true;
   String? _error;
@@ -82,9 +83,9 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
     final isInSchedule = myConferencesResource.hasSession(session.id);
 
     if (isInSchedule) {
-      removeConferenceFromScheduleCommand.execute(session.id);
+      const RemoveConferenceFromScheduleCommand().execute(session.id);
     } else {
-      addConferenceToScheduleCommand.execute(session);
+      const AddConferenceToScheduleCommand().execute(session);
     }
   }
 

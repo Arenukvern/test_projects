@@ -2,7 +2,6 @@
 
 import 'package:conference_app_2025/common_imports.dart';
 import 'package:conference_app_2025/data_api/data_api.dart';
-import 'package:conference_app_2025/data_commands/data_commands.dart';
 import 'package:conference_app_2025/data_listeners/streaming_client_api.dart';
 import 'package:get_it/get_it.dart';
 
@@ -52,9 +51,6 @@ class Di {
     _rl(SpeakersResource.new, dispose: _disposabler);
     _rl(TextScaleResource.new, dispose: _disposabler);
     _rl(ThemeBrightnessResource.new, dispose: _disposabler);
-    // Commands
-    _rl(() => AddConferenceToScheduleCommand(myConferencesResource: _g()));
-    _rl(() => RemoveConferenceFromScheduleCommand(myConferencesResource: _g()));
   }
 
   Future<void> dispose() => GetIt.instance.reset();
@@ -66,12 +62,6 @@ mixin HasResources {
   SpeakersResource get speakersResource => _g();
   TextScaleResource get textScaleResource => _g();
   ThemeBrightnessResource get themeBrightnessResource => _g();
-}
-
-mixin HasCommands {
-  AddConferenceToScheduleCommand get addConferenceToScheduleCommand => _g();
-  RemoveConferenceFromScheduleCommand get removeConferenceFromScheduleCommand =>
-      _g();
 }
 
 mixin HasApi {

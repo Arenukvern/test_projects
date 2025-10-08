@@ -1,5 +1,6 @@
 import 'package:conference_app_2025/data_models/data_models.dart';
 import 'package:conference_app_2025/data_resources/data_resources.dart';
+import 'package:conference_app_2025/di/di.dart';
 
 /// {@template add_conference_to_schedule_command}
 /// Command to add a conference session to the user's schedule.
@@ -15,11 +16,9 @@ import 'package:conference_app_2025/data_resources/data_resources.dart';
 /// command.execute(session);
 /// ```
 /// {@endtemplate}
-class AddConferenceToScheduleCommand {
+class AddConferenceToScheduleCommand with HasResources {
   /// {@macro add_conference_to_schedule_command}
-  const AddConferenceToScheduleCommand({required this.myConferencesResource});
-
-  final MyConferencesResource myConferencesResource;
+  const AddConferenceToScheduleCommand();
 
   /// Execute the command to add a session to the schedule
   void execute(final ConferenceSession session) {
