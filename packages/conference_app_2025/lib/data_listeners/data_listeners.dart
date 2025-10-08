@@ -1,1 +1,1 @@
-export 'client_api.dart';
+export 'streaming_client_api.dart';

@@ -11,8 +11,8 @@ abstract interface class ClientApiListener {
   void onServerData(final dynamic data);
 }
 
-abstract base class ClientApi {
-  ClientApi();
+abstract base class StreamingClientApi {
+  StreamingClientApi();
 
   final _streamController = StreamController<ClientApiData>.broadcast();
   final _listeners = <ClientApiListener>{};
@@ -42,6 +42,6 @@ abstract base class ClientApi {
   }
 }
 
-final class ClientApiMock extends ClientApi {
-  ClientApiMock();
+final class StreamingClientApiMock extends StreamingClientApi {
+  StreamingClientApiMock();
 }

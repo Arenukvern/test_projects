@@ -29,7 +29,11 @@ class DiProvider extends StatelessWidget with ResourcesMixin {
   Widget build(final BuildContext context) {
     const p = ChangeNotifierProvider.value;
     return MultiProvider(
-      providers: [],
+      providers: [
+        p(value: myConferencesResource),
+        p(value: conferenceTagsResource),
+        p(value: speakersResource),
+      ],
       builder: (final context, final child) => builder(context),
     );
   }

@@ -6,17 +6,18 @@ import 'package:from_json_to_json/from_json_to_json.dart';
 ///
 /// Used to distinguish between different sessions in the conference.
 /// Provides type-safe JSON serialization/deserialization.
-extension type const SessionId(String value) {
-  factory SessionId.fromJson(final dynamic value) =>
-      SessionId(jsonDecodeString(value));
+extension type const ConferenceSessionId(String value) {
+  factory ConferenceSessionId.fromJson(final dynamic value) =>
+      ConferenceSessionId(jsonDecodeString(value));
   String toJson() => value;
 
   bool get isEmpty => value.isEmpty;
   bool get isNotEmpty => value.isNotEmpty;
 
-  SessionId whenEmptyUse(final SessionId other) => isEmpty ? other : this;
+  ConferenceSessionId whenEmptyUse(final ConferenceSessionId other) =>
+      isEmpty ? other : this;
 
-  static const empty = SessionId('');
+  static const empty = ConferenceSessionId('');
 }
 
 /// Extension type that represents a unique identifier for a speaker.
@@ -40,17 +41,18 @@ extension type const SpeakerId(String value) {
 ///
 /// Used to categorize sessions and speakers in the conference.
 /// Provides type-safe JSON serialization/deserialization.
-extension type const TagModel(String value) {
-  factory TagModel.fromJson(final dynamic value) =>
-      TagModel(jsonDecodeString(value));
+extension type const ConferenceTag(String value) {
+  factory ConferenceTag.fromJson(final dynamic value) =>
+      ConferenceTag(jsonDecodeString(value));
   String toJson() => value;
 
   bool get isEmpty => value.isEmpty;
   bool get isNotEmpty => value.isNotEmpty;
 
-  TagModel whenEmptyUse(final TagModel other) => isEmpty ? other : this;
+  ConferenceTag whenEmptyUse(final ConferenceTag other) =>
+      isEmpty ? other : this;
 
-  static const empty = TagModel('');
+  static const empty = ConferenceTag('');
 }
 
 /// Extension type that represents a session at the conference.
@@ -74,18 +76,18 @@ extension type const TagModel(String value) {
 ///   "speaker_ids": ["p1"]
 /// }
 /// ```
-extension type const SessionModel._(Map<String, dynamic> value) {
-  /// Creates a [SessionModel] from individual fields.
-  factory SessionModel({
-    required final SessionId id,
+extension type const ConferenceSession._(Map<String, dynamic> value) {
+  /// Creates a [ConferenceSession] from individual fields.
+  factory ConferenceSession({
+    required final ConferenceSessionId id,
     required final String title,
     required final String abstractText,
     required final DateTime startAt,
     required final DateTime endAt,
     required final String room,
-    required final List<TagModel> tags,
+    required final List<ConferenceTag> tags,
     required final List<SpeakerId> speakerIds,
-  }) => SessionModel._({
+  }) => ConferenceSession._({
     'id': id,
     'title': title,
     'abstract': abstractText,
@@ -96,12 +98,12 @@ extension type const SessionModel._(Map<String, dynamic> value) {
     'speaker_ids': speakerIds,
   });
 
-  /// Creates a [SessionModel] from JSON.
-  factory SessionModel.fromJson(final dynamic json) =>
-      SessionModel._(jsonDecodeMapAs<String, dynamic>(json));
+  /// Creates a [ConferenceSession] from JSON.
+  factory ConferenceSession.fromJson(final dynamic json) =>
+      ConferenceSession._(jsonDecodeMapAs<String, dynamic>(json));
 
   /// The unique identifier for the session.
-  SessionId get id => SessionId.fromJson(value['id']);
+  ConferenceSessionId get id => ConferenceSessionId.fromJson(value['id']);
 
   /// The title of the session.
   String get title => jsonDecodeString(value['title']);
@@ -121,8 +123,9 @@ extension type const SessionModel._(Map<String, dynamic> value) {
   String get room => jsonDecodeString(value['room']);
 
   /// The tags associated with the session.
-  List<TagModel> get tags =>
-      jsonDecodeListAs<String>(value['tags']).map(TagModel.fromJson).toList();
+  List<ConferenceTag> get tags => jsonDecodeListAs<String>(
+    value['tags'],
+  ).map(ConferenceTag.fromJson).toList();
 
   /// The list of speaker IDs for this session.
   List<SpeakerId> get speakerIds => jsonDecodeListAs<String>(
@@ -133,7 +136,7 @@ extension type const SessionModel._(Map<String, dynamic> value) {
   Map<String, dynamic> toJson() => value;
 
   /// An empty session model.
-  static const empty = SessionModel._({});
+  static const empty = ConferenceSession._({});
 }
 
 /// Immutable model representing a speaker.
@@ -148,23 +151,19 @@ extension type const SessionModel._(Map<String, dynamic> value) {
 ///   "avatar_url": null
 /// }
 /// ```
-extension type const SpeakerModel._(Map<String, dynamic> value) {
-  /// Creates a [SpeakerModel] from fields.
-  factory SpeakerModel({
+extension type const Speaker._(Map<String, dynamic> value) {
+  /// Creates a [Speaker] from fields.
+  factory Speaker({
     required final SpeakerId id,
     required final String name,
     required final String bio,
     final String? avatarUrl,
-  }) => SpeakerModel._({
-    'id': id,
-    'name': name,
-    'bio': bio,
-    'avatar_url': avatarUrl,
-  });
+  }) =>
+      Speaker._({'id': id, 'name': name, 'bio': bio, 'avatar_url': avatarUrl});
 
-  /// Creates a [SpeakerModel] from JSON.
-  factory SpeakerModel.fromJson(final dynamic json) =>
-      SpeakerModel._(jsonDecodeMapAs<String, dynamic>(json));
+  /// Creates a [Speaker] from JSON.
+  factory Speaker.fromJson(final dynamic json) =>
+      Speaker._(jsonDecodeMapAs<String, dynamic>(json));
 
   /// The unique identifier for the speaker.
   SpeakerId get id => SpeakerId.fromJson(value['id']);
@@ -184,5 +183,5 @@ extension type const SpeakerModel._(Map<String, dynamic> value) {
   Map<String, dynamic> toJson() => value;
 
   /// An empty speaker model.
-  static const empty = SpeakerModel._({});
+  static const empty = Speaker._({});
 }

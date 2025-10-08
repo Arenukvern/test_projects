@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_annotating_with_dynamic
 
 import 'package:conference_app_2025/common_imports.dart';
-import 'package:conference_app_2025/data_listeners/client_api.dart';
+import 'package:conference_app_2025/data_listeners/streaming_client_api.dart';
 import 'package:get_it/get_it.dart';
 
 T _g<T extends Object>({
@@ -26,13 +26,24 @@ class Di {
   late final _g = GetIt.instance.get;
 
   void register() {
-    _rl<ClientApi>(ClientApiMock.new, dispose: (final d) => d.dispose());
+    _rl<StreamingClientApi>(
+      StreamingClientApiMock.new,
+      dispose: (final d) => d.dispose(),
+    );
+    _rl(MyConferencesResource.new, dispose: _disposabler);
+    _rl(ConferenceTagsResource.new, dispose: _disposabler);
+    _rl(SpeakersResource.new, dispose: _disposabler);
   }
 
   Future<void> dispose() => GetIt.instance.reset();
 }
 
-mixin ResourcesMixin {}
+mixin ResourcesMixin {
+  MyConferencesResource get myConferencesResource => _g();
+  ConferenceTagsResource get conferenceTagsResource => _g();
+  SpeakersResource get speakersResource => _g();
+}
+
 mixin ApiMixin {
-  ClientApi get clientApi => _g<ClientApi>();
+  StreamingClientApi get clientApi => _g<StreamingClientApi>();
 }
