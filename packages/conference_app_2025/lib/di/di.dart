@@ -45,6 +45,8 @@ class Di {
       dispose: (final d) => d.dispose(),
     );
     _rl<ConferenceApiI>(ConferenceApiMockImpl.new);
+    _rl<ConferenceTagsApiI>(ConferenceTagsApiMockImpl.new);
+    _rl<SpeakerApiI>(SpeakerApiMockImpl.new);
     _rl(MyConferencesResource.new, dispose: _disposabler);
     _rl(ConferenceTagsResource.new, dispose: _disposabler);
     _rl(SpeakersResource.new, dispose: _disposabler);
@@ -75,4 +77,6 @@ mixin HasCommands {
 mixin HasApi {
   StreamingClientApi get clientApi => _g<StreamingClientApi>();
   ConferenceApiI get conferenceApi => _g<ConferenceApiI>();
+  ConferenceTagsApiI get conferenceTagsApi => _g<ConferenceTagsApiI>();
+  SpeakerApiI get speakerApi => _g<SpeakerApiI>();
 }
