@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:carflutter_2025sep/ui_kit/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
 /// {@template button_container}
 /// A glassmorphic button container matching SVG design specifications.
@@ -9,6 +11,7 @@ import 'package:gap/gap.dart';
 /// Features:
 /// - Linear gradient with 315° angle (bottom-left to top-right)
 /// - Backdrop blur effect for glassmorphic appearance
+/// - Optional gradient border using CustomPainter
 /// - Responsive scaling for rectangle and square formats
 /// - Flex row layout with centered alignment
 /// - Fixed dimensions based on SVG specifications
@@ -20,6 +23,8 @@ class ButtonContainer extends StatelessWidget {
     this.onTap,
     this.width,
     this.height,
+    this.gradientBorder,
+    this.borderStrokeWidth = 1.5,
     super.key,
   });
 
@@ -35,6 +40,12 @@ class ButtonContainer extends StatelessWidget {
   /// Container height override (optional)
   final double? height;
 
+  /// Optional gradient to apply to border. If null, no gradient border is drawn
+  final Gradient? gradientBorder;
+
+  /// Stroke width for the gradient border
+  final double borderStrokeWidth;
+
   @override
   Widget build(final BuildContext context) {
     final scaledWidth = width;
@@ -44,36 +55,58 @@ class ButtonContainer extends StatelessWidget {
     const verticalPadding = 11.76;
     const scaledGap = 11.76;
 
-    return GestureDetector(
-      onTap: onTap,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(scaledBorderRadius),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 8.66, sigmaY: 8.66),
-          child: Container(
-            width: scaledWidth,
-            height: scaledHeight,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0x0DFFFFFF), // rgba(255, 255, 255, 0.05)
-                  Color(0x00FFFFFF), // rgba(255, 255, 255, 0)
-                ],
-                stops: [0.0, 1.0],
-              ),
-              borderRadius: BorderRadius.circular(scaledBorderRadius),
-            ),
-            // SVG auto layout: flex-direction: row, align-items: center
-            child: FittedBox(
-              fit: BoxFit.fitHeight,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: horizontalPadding,
-                  vertical: verticalPadding,
+    final borderRadius = BorderRadius.circular(scaledBorderRadius);
+
+    return LayoutBuilder(
+      builder: (final context, final constraints) => GestureDetector(
+        onTap: onTap,
+        child: ClipRRect(
+          borderRadius: borderRadius,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 8.66, sigmaY: 8.66),
+            child: Container(
+              width: scaledWidth,
+              height: scaledHeight,
+              decoration: BoxDecoration(
+                border: GradientBoxBorder(
+                  gradient:
+                      gradientBorder ??
+                      const RadialGradient(
+                        colors: [
+                          AppColors.white0,
+                          AppColors.white20,
+                          AppColors.white0,
+                        ],
+                        stops: [0.0, 0.5, 1.0],
+                        center: Alignment.topLeft,
+                        // TODO(arenukvern): add dependence from widget ratio
+                        // width / height
+                        radius: 1.5,
+                      ),
+                  width: 0.39,
                 ),
-                child: _buildChildWithGap(scaledGap),
+
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0x0DFFFFFF), // rgba(255, 255, 255, 0.05)
+                    Color(0x00FFFFFF), // rgba(255, 255, 255, 0)
+                  ],
+                  stops: [0.0, 1.0],
+                ),
+                borderRadius: borderRadius,
+              ),
+              // SVG auto layout: flex-direction: row, align-items: center
+              child: FittedBox(
+                fit: BoxFit.fitHeight,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: horizontalPadding,
+                    vertical: verticalPadding,
+                  ),
+                  child: _buildChildWithGap(scaledGap),
+                ),
               ),
             ),
           ),
@@ -118,7 +151,7 @@ class ButtonContainer extends StatelessWidget {
 /// Predefined ButtonContainer variants for common use cases.
 ///
 /// All variants use the same glassmorphic styling from SVG specifications
-/// with different child content arrangements.
+/// with different child content arrangements. Support optional gradient borders.
 /// {@endtemplate}
 class ButtonContainerVariants {
   ButtonContainerVariants._();
@@ -129,8 +162,16 @@ class ButtonContainerVariants {
     required final VoidCallback? onTap,
     final double? width,
     final double? height,
-  }) =>
-      ButtonContainer(onTap: onTap, width: width, height: height, child: child);
+    final Gradient? gradientBorder,
+    final double borderStrokeWidth = 1.5,
+  }) => ButtonContainer(
+    onTap: onTap,
+    width: width,
+    height: height,
+    gradientBorder: gradientBorder,
+    borderStrokeWidth: borderStrokeWidth,
+    child: child,
+  );
 
   /// Icon-only button with SVG car icon dimensions (23.51x23.51px)
   static ButtonContainer icon({
@@ -138,8 +179,16 @@ class ButtonContainerVariants {
     required final VoidCallback? onTap,
     final double? width,
     final double? height,
-  }) =>
-      ButtonContainer(onTap: onTap, width: width, height: height, child: icon);
+    final Gradient? gradientBorder,
+    final double borderStrokeWidth = 1.5,
+  }) => ButtonContainer(
+    onTap: onTap,
+    width: width,
+    height: height,
+    gradientBorder: gradientBorder,
+    borderStrokeWidth: borderStrokeWidth,
+    child: icon,
+  );
 
   /// Button with icon and text in row layout
   static ButtonContainer iconText({
@@ -148,10 +197,14 @@ class ButtonContainerVariants {
     required final VoidCallback? onTap,
     final double? width,
     final double? height,
+    final Gradient? gradientBorder,
+    final double borderStrokeWidth = 1.5,
   }) => ButtonContainer(
     onTap: onTap,
     width: width,
     height: height,
+    gradientBorder: gradientBorder,
+    borderStrokeWidth: borderStrokeWidth,
     child: Row(mainAxisSize: MainAxisSize.min, children: [icon, text]),
   );
 
@@ -161,6 +214,14 @@ class ButtonContainerVariants {
     required final VoidCallback? onTap,
     final double? width,
     final double? height,
-  }) =>
-      ButtonContainer(onTap: onTap, width: width, height: height, child: text);
+    final Gradient? gradientBorder,
+    final double borderStrokeWidth = 1.5,
+  }) => ButtonContainer(
+    onTap: onTap,
+    width: width,
+    height: height,
+    gradientBorder: gradientBorder,
+    borderStrokeWidth: borderStrokeWidth,
+    child: text,
+  );
 }

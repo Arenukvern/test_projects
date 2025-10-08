@@ -1,5 +1,4 @@
 import 'package:carflutter_2025sep/core/core.dart';
-import 'package:carflutter_2025sep/ui_kit/theme/theme.dart';
 import 'package:carflutter_2025sep/ui_kit/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,8 +11,8 @@ import 'package:flutter_svg/svg.dart';
 /// 5: Empty
 enum PlateType { belarusian, kazakhstani, ukrainian, brazilian, empty, russian }
 
-class CarPlate extends StatelessWidget {
-  const CarPlate({required this.plateType, super.key});
+class VehiclePlate extends StatelessWidget {
+  const VehiclePlate({required this.plateType, super.key});
   final PlateType plateType;
 
   @override

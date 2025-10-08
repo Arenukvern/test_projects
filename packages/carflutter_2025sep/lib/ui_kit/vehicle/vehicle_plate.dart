@@ -1,8 +1,8 @@
 import 'package:carflutter_2025sep/core/core.dart';
-import 'package:carflutter_2025sep/ui_kit/theme/theme.dart';
 import 'package:carflutter_2025sep/ui_kit/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:from_json_to_json/from_json_to_json.dart';
 
 /// 0: Russian,
 /// 1: Belarusian,
@@ -10,10 +10,25 @@ import 'package:flutter_svg/svg.dart';
 /// 3: Ukrainian,
 /// 4: Brazilian,
 /// 5: Empty
-enum PlateType { belarusian, kazakhstani, ukrainian, brazilian, empty, russian }
+enum PlateType {
+  belarusian,
+  kazakhstani,
+  ukrainian,
+  brazilian,
+  empty,
+  russian;
 
-class CarPlate extends StatelessWidget {
-  const CarPlate({required this.plateType, super.key});
+  factory PlateType.fromJson(final json) {
+    try {
+      return PlateType.values[jsonDecodeInt(json)];
+    } catch (e) {
+      return PlateType.empty;
+    }
+  }
+}
+
+class VehiclePlate extends StatelessWidget {
+  const VehiclePlate({required this.plateType, super.key});
   final PlateType plateType;
 
   @override

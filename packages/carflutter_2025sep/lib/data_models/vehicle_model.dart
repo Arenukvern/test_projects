@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_annotating_with_dynamic
 
 import 'package:carflutter_2025sep/data_models/data_models.dart';
+import 'package:carflutter_2025sep/ui_kit/ui_kit.dart';
 import 'package:from_json_to_json/from_json_to_json.dart';
 
 enum VehicleStatus {
@@ -64,6 +65,8 @@ extension type const Vehicle._(Map<String, dynamic> value) {
 
   /// Unique identifier for this car.
   VehicleId get id => VehicleId.fromJson(value['id']);
+
+  PlateType get plateType => PlateType.fromJson(value['plateType']);
 
   /// Name of the car's render image.
   String get imageName => jsonDecodeString(value['imageName']);
