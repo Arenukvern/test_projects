@@ -14,6 +14,7 @@ class DiProvider extends StatelessWidget with HasResources {
         p(value: speakersResource),
         p(value: textScaleResource),
         p(value: themeBrightnessResource),
+        p(value: appStatusResource),
       ],
       builder: (final context, final child) => builder(context),
     );

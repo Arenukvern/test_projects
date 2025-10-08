@@ -1,10 +1,10 @@
 import 'package:conference_app_2025/common_imports.dart';
 import 'package:conference_app_2025/ui_conferences/ui_all_conferences_screen.dart';
 import 'package:conference_app_2025/ui_conferences/ui_conference_details_screen.dart';
-import 'package:conference_app_2025/ui_navigation/ui_bottom_nav_shell.dart';
+import 'package:conference_app_2025/ui_home/ui_home_screen.dart';
 import 'package:conference_app_2025/ui_profile/ui_profile_screen.dart';
 import 'package:conference_app_2025/ui_schedule/ui_my_schedule_screen.dart';
-import 'package:conference_app_2025/ui_spash/ui_splash_screen.dart';
+import 'package:conference_app_2025/ui_splash/ui_splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
 /// {@template app_router}
@@ -29,7 +29,7 @@ final appRouter = GoRouter(
     ),
     StatefulShellRoute.indexedStack(
       builder: (final context, final state, final navigationShell) =>
-          UiBottomNavShell(navigationShell: navigationShell),
+          UiHomeScreen(navigationShell: navigationShell),
       branches: [
         // Branch 0: All Conferences
         StatefulShellBranch(

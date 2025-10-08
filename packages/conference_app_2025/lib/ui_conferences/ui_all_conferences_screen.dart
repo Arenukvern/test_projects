@@ -1,6 +1,8 @@
 import 'package:conference_app_2025/common_imports.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:xsoulspace_ui_foundation/xsoulspace_ui_foundation.dart';
 
 /// {@template ui_all_conferences_screen}
 /// Screen displaying all available conference sessions.
@@ -23,11 +25,38 @@ class _UiAllConferencesScreenState extends State<UiAllConferencesScreen>
     with HasApi {
   final _searchController = TextEditingController();
   final _selectedTags = <ConferenceTag>{};
-  String _searchQuery = '';
+  late final _pagingController = AllConferencesResource(
+    requestBuilder:
+        AllConferencesPagingControllerRequestsBuilder.filteredConferences(
+          conferenceApi: conferenceApi,
+          selectedTags: _selectedTags,
+          searchQuery: _searchController.text.toLowerCase(),
+        ),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+    _pagingController.loadFirstPage();
+  }
+
+  void _onSearchChanged() => _pagingController.refresh();
+  void _changeTags(final Set<ConferenceTag> tags) {
+    setState(
+      () => _selectedTags
+        ..clear()
+        ..addAll(tags),
+    );
+    _pagingController.refresh();
+  }
 
   @override
   void dispose() {
-    _searchController.dispose();
+    _searchController
+      ..removeListener(_onSearchChanged)
+      ..dispose();
+    _pagingController.dispose();
     super.dispose();
   }
 
@@ -36,50 +65,39 @@ class _UiAllConferencesScreenState extends State<UiAllConferencesScreen>
     final conferenceTagsResource = context.watch<ConferenceTagsResource>();
 
     final myConferences = context.watch<MyConferencesResource>();
-    final myConferencesIds = <ConferenceSessionId>{};
-    myConferences.forEach(myConferencesIds.add);
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('All Conferences')),
-      body: Column(
-        children: [
+    return UiScaffold(
+      body: CustomScrollView(
+        slivers: [
+          const SliverAppBar(title: Text('All Conferences')),
           // Search bar
-          Padding(
+          SliverPadding(
             padding: const EdgeInsets.all(16),
-            child: UiSearchBar(
+            sliver: UiSearchBar(
               controller: _searchController,
               hintText: 'Search conferences...',
-              onChanged: (final query) =>
-                  setState(() => _searchQuery = query.toLowerCase()),
-            ),
+            ).toSliver(),
           ),
 
           // Filter chips
           if (conferenceTagsResource.isNotEmpty)
-            Padding(
+            SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: UiMultichipsRow<ConferenceTag>(
+              sliver: UiMultichipsRow<ConferenceTag>(
                 items: conferenceTagsResource.orderedValues,
                 labelBuilder: (final tag) => tag.value,
                 selectedItems: _selectedTags,
                 selectionMode: UiMultichipsSelectionMode.multiple,
-                onSelectionChanged: (final selected) => setState(
-                  () => _selectedTags
-                    ..clear()
-                    ..addAll(selected),
-                ),
-              ),
+                onSelectionChanged: _changeTags,
+              ).toSliver(),
             ),
 
-          const SizedBox(height: 8),
+          const SliverGap(8),
 
           // Conference list
-          Expanded(
-            child: _ConferencesList(
-              searchQuery: _searchQuery,
-              selectedTags: _selectedTags,
-              myConferencesIds: myConferencesIds,
-            ),
+          _ConferencesList(
+            allConferencesResource: _pagingController,
+            myConferencesResource: myConferences,
           ),
         ],
       ),
@@ -87,56 +105,38 @@ class _UiAllConferencesScreenState extends State<UiAllConferencesScreen>
   }
 }
 
-class _ConferencesList extends StatefulWidget {
+class _ConferencesList extends StatelessWidget {
   const _ConferencesList({
-    required this.searchQuery,
-    required this.selectedTags,
-    required this.myConferencesIds,
+    required this.allConferencesResource,
+    required this.myConferencesResource,
   });
 
-  final String searchQuery;
-  final Set<ConferenceTag> selectedTags;
-  final Set<ConferenceSessionId> myConferencesIds;
-
-  @override
-  State<_ConferencesList> createState() => _ConferencesListState();
-}
-
-class _ConferencesListState extends State<_ConferencesList>
-    with HasResources, HasApi {
-  late final _pagingController = AllConferencesResource(
-    requestBuilder:
-        AllConferencesPagingControllerRequestsBuilder.filteredConferences(
-          conferenceApi: conferenceApi,
-          selectedTags: widget.selectedTags,
-          searchQuery: widget.searchQuery,
-        ),
-  );
-
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
+  final AllConferencesResource allConferencesResource;
+  final MyConferencesResource myConferencesResource;
 
   @override
   Widget build(final BuildContext context) => PagingListener(
-    controller: _pagingController.pager,
-    builder: (final context, final state, final fetchNextPage) => PagedListView(
-      state: state,
-      fetchNextPage: fetchNextPage,
-      builderDelegate: PagedChildBuilderDelegate<ConferenceSession>(
-        noItemsFoundIndicatorBuilder: (final context) =>
-            const Center(child: Text('No conferences match your filters')),
-        itemBuilder: (final context, final item, final index) =>
-            _ConferenceListItem(
-              session: item,
-              isInSchedule: widget.myConferencesIds.contains(item.id),
-              onTap: () =>
-                  context.goNamed(AppRoute.conferenceDetails.name, extra: item),
-            ),
-      ),
-    ),
+    controller: allConferencesResource.pager,
+    builder: (final context, final state, final fetchNextPage) =>
+        PagedSliverList(
+          state: state,
+          fetchNextPage: fetchNextPage,
+          builderDelegate: PagedChildBuilderDelegate<ConferenceSession>(
+            noItemsFoundIndicatorBuilder: (final context) =>
+                const Center(child: Text('No conferences match your filters')),
+            itemBuilder: (final context, final item, final index) =>
+                _ConferenceListItem(
+                  session: item,
+                  key: ValueKey(item.id),
+                  isInSchedule: myConferencesResource.containsKey(item.id),
+                  onTap: () => context.goNamed(
+                    AppRoute.conferenceDetails.name,
+                    extra: item,
+                    pathParameters: {'id': item.id.value},
+                  ),
+                ),
+          ),
+        ),
   );
 }
 
@@ -145,6 +145,7 @@ class _ConferenceListItem extends StatelessWidget {
     required this.session,
     required this.isInSchedule,
     required this.onTap,
+    required super.key,
   });
 
   final ConferenceSession session;

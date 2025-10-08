@@ -62,6 +62,42 @@ final List<Map<String, dynamic>> mockConferencesPaginatedJson = [
     'tags': ['flutter', 'testing'],
     'speaker_ids': ['p11', 'p12'],
   },
+  ...List.generate(
+    1000,
+    (final index) => {
+      'id': '${index + 7}',
+      'title':
+          'Conference Session ${['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Theta', 'Sigma', 'Omega'][index % 9]} #${index + 7}',
+      'abstract':
+          'This is a session about ${['Flutter', 'Architecture', 'Testing', 'Design', 'Leadership', 'Maintenance'][index % 6]} and its impact on ${['mobile', 'web', 'cloud', 'AI', 'IoT'][index % 5]} development.',
+      'start_at':
+          '2025-01-01T${(8 + (index % 10)).toString().padLeft(2, '0')}:00:00.000Z',
+      'end_at':
+          '2025-01-01T${(9 + (index % 10)).toString().padLeft(2, '0')}:00:00.000Z',
+      'room': 'Room ${index % 10 + 1}',
+      'tags': ([
+        'flutter',
+        'architecture',
+        'testing',
+        'design',
+        'leadership',
+        'maintenance',
+      ]..shuffle()).sublist(0, 2 + (index % 3)), // 2-3 random tags
+
+      'speaker_ids': ([
+        'p1',
+        'p2',
+        'p3',
+        'p4',
+        'p5',
+        'p6',
+        'p7',
+        'p8',
+        'p9',
+        'p10',
+      ]..shuffle()).sublist(0, 1 + (index % 2)), // 1-2 random speakers
+    },
+  ),
 ];
 
 final List<Map<String, dynamic>> mockSpeakersJson = [

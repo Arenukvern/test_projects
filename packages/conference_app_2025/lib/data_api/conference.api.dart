@@ -25,18 +25,28 @@ class ConferenceApiMockImpl implements ConferenceApiI {
     required final String searchQuery,
   }) async {
     const dataPerPage = 10;
-    final data = mockConferencesPaginatedJson[page];
-    final filteredData = jsonDecodeListAs(data)
-        .map(ConferenceSession.fromJson)
-        .where(
-          (final session) =>
-              session.tags.any(selectedTags.contains) &&
-              session.title.toLowerCase().contains(searchQuery.toLowerCase()),
-        )
+    Iterable<ConferenceSession> iterable =
+        jsonDecodeListAs<Map<String, dynamic>>(
+          mockConferencesPaginatedJson,
+
+          /// in production, we should use map(ConferenceSession.fromJson)
+          /// instead of cast<ConferenceSession>()
+        ).cast<ConferenceSession>();
+    if (searchQuery.isNotEmpty || selectedTags.isNotEmpty) {
+      iterable = iterable.where(
+        (final session) =>
+            session.tags.any(selectedTags.contains) &&
+            session.title.toLowerCase().contains(searchQuery.toLowerCase()),
+      );
+    }
+    final result = iterable
+        .skip((page - 1) * dataPerPage)
+        .take(dataPerPage)
         .toList();
-    final pagesCount = (filteredData.length / dataPerPage).ceil();
+
+    final pagesCount = (iterable.length / dataPerPage).ceil();
     return PagingControllerPageModel(
-      values: filteredData,
+      values: result,
       currentPage: page,
       pagesCount: pagesCount,
     );
