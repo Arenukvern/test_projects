@@ -51,6 +51,7 @@ dependencies:
   is_dart_empty_or_not: ^0.2.3
   provider: ^6.1.5+1
   xsoulspace_state_utils: ^0.3.2
+  xsoulspace_ui_foundation: ^0.2.0
 
 dev_dependencies:
   build_runner: ^2.7.1
@@ -58,16 +59,13 @@ dev_dependencies:
   flutter_gen_runner: ^5.11.0
   flutter_test:
     sdk: flutter
-  lints: ^5.1.1
+  lints: ^6.0.0
   xsoulspace_lints: ^0.1.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter:
-  assets:
-    - assets/images/
-    - assets/icons/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

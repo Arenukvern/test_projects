@@ -270,6 +270,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.11.0"
+  flutter_staggered_grid_view:
+    dependency: transitive
+    description:
+      name: flutter_staggered_grid_view
+      sha256: "19e7abb550c96fbfeb546b23f3ff356ee7c59a019a651f8f102a4ba9b7349395"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -408,6 +416,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
+  infinite_scroll_pagination:
+    dependency: transitive
+    description:
+      name: infinite_scroll_pagination
+      sha256: b0d28e37cd8f62490ff6aef63f9db93d4c78b7f11b7c6b26f33c69d8476fda78
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.1"
   io:
     dependency: transitive
     description:
@@ -460,10 +476,10 @@ packages:
     dependency: "direct dev"
     description:
       name: lints
-      sha256: c35bb79562d980e9a453fc715854e1ed39e24e7d0297a880ef54e17f9874a9d7
+      sha256: a5e2b223cb7c9c8efdc663ef484fdd95bb243bff242ef5b13e26883547fce9a0
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.1"
+    version: "6.0.0"
   logging:
     dependency: transitive
     description:
@@ -701,6 +717,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  sliver_tools:
+    dependency: transitive
+    description:
+      name: sliver_tools
+      sha256: eae28220badfb9d0559207badcbbc9ad5331aac829a88cb0964d330d2a4636a6
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.12"
   source_span:
     dependency: transitive
     description:
@@ -909,6 +933,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.2"
+  xsoulspace_ui_foundation:
+    dependency: "direct main"
+    description:
+      name: xsoulspace_ui_foundation
+      sha256: "677b9d7043c58d25ec267159cc2f5e5f7283353befcad0a01575c8b8b1a70c54"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   yaml:
     dependency: transitive
     description:

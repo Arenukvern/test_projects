@@ -1,4 +1,8 @@
-import 'package:conference_app_2025/common_imports.dart';
+import 'package:conference_app_2025/data_models/data_models.dart';
+import 'package:xsoulspace_state_utils/xsoulspace_state_utils.dart';
+
+export 'all_conference.src.dart';
+export 'text_scale.src.dart';
 
 class MyConferencesResource
     extends OrderedMapNotifier<ConferenceSessionId, ConferenceSession> {
