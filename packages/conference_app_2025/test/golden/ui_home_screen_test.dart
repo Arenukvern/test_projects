@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
+
+import '../test_helpers.dart';
 
 /// Golden tests for bottom navigation bar
 ///
@@ -7,6 +10,12 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 /// Note: Full UiHomeScreen test requires StatefulNavigationShell from go_router
 /// which is difficult to mock in isolation. This tests the bottom bar structure.
 void main() {
+  setUp(setupTestDi);
+
+  tearDown(() async {
+    await tearDownTestDi();
+  });
+
   testGoldens('Bottom Navigation Bar - golden test', (final tester) async {
     // Create a simplified version of the bottom nav bar for testing
     final widget = Scaffold(
@@ -28,7 +37,7 @@ void main() {
 
     await tester.pumpWidgetBuilder(
       widget,
-      wrapper: materialAppWrapper(theme: ThemeData.light()),
+      wrapper: testAppWrapper(),
       surfaceSize: const Size(375, 667), // iPhone SE size
     );
 

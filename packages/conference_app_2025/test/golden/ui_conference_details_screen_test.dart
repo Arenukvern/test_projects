@@ -2,14 +2,23 @@ import 'package:conference_app_2025/data_models/data_models.dart';
 import 'package:conference_app_2025/data_resources/data_resources.dart';
 import 'package:conference_app_2025/ui_conferences/ui_conference_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:provider/provider.dart';
+
+import '../test_helpers.dart';
 
 /// Golden tests for [UiConferenceDetailsScreen]
 ///
 /// Tests the visual appearance of the conference details screen
 void main() {
-  testGoldens('UiConferenceDetailsScreen - golden test', (final tester) async {
+  setUp(setupTestDi);
+
+  tearDown(() async {
+    await tearDownTestDi();
+  });
+
+  testGoldens('UiConferenceDetailsScreen - with speaker', (final tester) async {
     // Create mock session data
     final mockSession = ConferenceSession(
       id: const ConferenceSessionId('test-id'),
@@ -25,22 +34,22 @@ void main() {
       speakerIds: [const SpeakerId('speaker-1')],
     );
 
-    // Create mock resources
-    final myConferencesResource = MyConferencesResource();
-    final speakersResource = SpeakersResource();
+    // Seed speaker data
+    final speakersResource = GetIt.instance.get<SpeakersResource>();
+    seedSpeakers(speakersResource, [
+      Speaker(
+        id: const SpeakerId('speaker-1'),
+        name: 'Alex Kim',
+        bio: 'Principal Engineer at Tech Corp',
+      ),
+    ]);
 
     await tester.pumpWidgetBuilder(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider.value(value: myConferencesResource),
-          ChangeNotifierProvider.value(value: speakersResource),
-        ],
-        child: UiConferenceDetailsScreen(
-          sessionId: mockSession.id,
-          session: mockSession,
-        ),
+      UiConferenceDetailsScreen(
+        sessionId: mockSession.id,
+        session: mockSession,
       ),
-      wrapper: materialAppWrapper(theme: ThemeData.light()),
+      wrapper: testAppWrapper(),
       surfaceSize: const Size(375, 667), // iPhone SE size
     );
 

@@ -1,25 +1,24 @@
-import 'package:conference_app_2025/data_resources/data_resources.dart';
 import 'package:conference_app_2025/ui_profile/ui_profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:provider/provider.dart';
+
+import '../test_helpers.dart';
 
 /// Golden tests for [UiProfileScreen]
 ///
 /// Tests the visual appearance of the profile/settings screen
 void main() {
-  testGoldens('UiProfileScreen - golden test', (final tester) async {
+  setUp(setupTestDi);
+
+  tearDown(() async {
+    await tearDownTestDi();
+  });
+
+  testGoldens('UiProfileScreen - default settings', (final tester) async {
     await tester.pumpWidgetBuilder(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (final _) => TextScaleResource()),
-          ChangeNotifierProvider(
-            create: (final _) => ThemeBrightnessResource(),
-          ),
-        ],
-        child: const UiProfileScreen(),
-      ),
-      wrapper: materialAppWrapper(theme: ThemeData.light()),
+      const UiProfileScreen(),
+      wrapper: testAppWrapper(),
       surfaceSize: const Size(375, 667), // iPhone SE size
     );
 
