@@ -38,12 +38,13 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
 
   Future<void> _loadSession() async {
     _error = null;
-    if (widget.session.isEmpty) {
-      if (mounted)
+    if (widget.session.isNotEmpty) {
+      if (mounted) {
         setState(() {
           _session = widget.session;
           _isLoading = false;
         });
+      }
       return;
     }
 
