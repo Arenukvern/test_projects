@@ -32,7 +32,7 @@ class ConferenceApiMockImpl with HasUtilities implements ConferenceApiI {
       if (searchQuery.isNotEmpty || selectedTags.isNotEmpty) {
         iterable = iterable.where(
           (final session) =>
-              session.tags.any(selectedTags.contains) &&
+              selectedTags.every((final tag) => session.tags.contains(tag)) &&
               session.title.toLowerCase().contains(searchQuery.toLowerCase()),
         );
       }
