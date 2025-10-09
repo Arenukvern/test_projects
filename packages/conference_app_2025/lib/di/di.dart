@@ -4,6 +4,7 @@ import 'package:conference_app_2025/common_imports.dart';
 import 'package:conference_app_2025/core/core.dart';
 import 'package:conference_app_2025/data_api/data_api.dart';
 import 'package:conference_app_2025/data_listeners/streaming_client_api.dart';
+import 'package:conference_app_2025/services/notification_service.dart';
 import 'package:get_it/get_it.dart';
 
 T _g<T extends Object>({
@@ -37,6 +38,10 @@ class Di {
     _rl(SpeakersResource.new, dispose: _disposabler);
     _rl(TextScaleResource.new, dispose: _disposabler);
     _rl(ThemeBrightnessResource.new, dispose: _disposabler);
+    _rl(
+      MutableConferenceControllersResource.new,
+      dispose: (final src) => src.dispose(),
+    );
 
     // Utilities
     _rl(
@@ -54,12 +59,17 @@ class Di {
     _rl<ConferenceApiI>(ConferenceApiMockImpl.new);
     _rl<ConferenceTagsApiI>(ConferenceTagsApiMockImpl.new);
     _rl<SpeakerApiI>(SpeakerApiMockImpl.new);
+
+    // Services
+    _rl(NotificationService.new);
   }
 
   Future<void> dispose() => GetIt.instance.reset();
 }
 
 mixin HasResources {
+  MutableConferenceControllersResource get conferenceControllersResource =>
+      _g();
   NetworkSimulationSettingsResource get networkSimulationSettingsResource =>
       _g();
   AppMessagesResource get appMessagesResource => _g();
@@ -80,4 +90,8 @@ mixin HasApi {
   ConferenceApiI get conferenceApi => _g<ConferenceApiI>();
   ConferenceTagsApiI get conferenceTagsApi => _g<ConferenceTagsApiI>();
   SpeakerApiI get speakerApi => _g<SpeakerApiI>();
+}
+
+mixin HasServices {
+  NotificationService get notificationService => _g();
 }

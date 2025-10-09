@@ -22,10 +22,10 @@ class UiAllConferencesScreen extends StatefulWidget {
 }
 
 class _UiAllConferencesScreenState extends State<UiAllConferencesScreen>
-    with HasApi {
+    with HasApi, HasResources {
   final _searchController = TextEditingController();
   final _selectedTags = <ConferenceTag>{};
-  late final _pagingController = AllConferencesResource(
+  late final _pagingController = conferenceControllersResource.createController(
     requestBuilder:
         AllConferencesPagingControllerRequestsBuilder.filteredConferences(
           conferenceApi: conferenceApi,
@@ -56,7 +56,7 @@ class _UiAllConferencesScreenState extends State<UiAllConferencesScreen>
     _searchController
       ..removeListener(_onSearchChanged)
       ..dispose();
-    _pagingController.dispose();
+    conferenceControllersResource.disposeController(_pagingController.id);
     super.dispose();
   }
 

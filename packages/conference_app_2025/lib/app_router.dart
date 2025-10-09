@@ -16,11 +16,13 @@ import 'package:go_router/go_router.dart';
 ///
 /// Features:
 /// - Bottom tab navigation for main screens
-/// - Deep linking support for conference details
+/// - Deep linking support for conference details (myapp://conference/{id})
 /// - Type-safe route parameters
+/// - Handles both cold start and warm start deep links
 /// {@endtemplate}
 final appRouter = GoRouter(
   initialLocation: AppRoute.splash.path,
+  redirect: (final context, final state) => _handleDeepLink(state),
   routes: [
     GoRoute(
       path: AppRoute.splash.path,
@@ -104,3 +106,23 @@ final appRouter = GoRouter(
     ),
   ],
 );
+
+/// Handles deep link navigation for myapp://conference/{id}
+///
+/// Extracts conference ID from the URI and redirects to conference details.
+/// Works for both cold start (app closed) and warm start (app running).
+String? _handleDeepLink(final GoRouterState state) {
+  final uri = state.uri;
+
+  // Handle myapp://conference/{id} deep links
+  if (uri.scheme == 'myapp' && uri.host == 'conference') {
+    final pathSegments = uri.pathSegments;
+    if (pathSegments.isNotEmpty) {
+      final conferenceId = pathSegments.first;
+      // Navigate to conference details via all conferences route
+      return '/conferences/$conferenceId';
+    }
+  }
+
+  return null;
+}

@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 typedef ClientApiData = dynamic;
 
 // ignore: one_member_abstracts
-abstract interface class ClientApiListener {
+abstract class ClientApiListener {
   void onServerData(final dynamic data);
 }
 

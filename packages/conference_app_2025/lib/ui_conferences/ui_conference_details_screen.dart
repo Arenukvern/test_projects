@@ -40,10 +40,15 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
   Future<void> _loadSession() async {
     _error = null;
     if (widget.session.isEmpty) {
-      if (mounted) setState(() => _session = widget.session);
+      if (mounted)
+        setState(() {
+          _session = widget.session;
+          _isLoading = false;
+        });
       return;
     }
 
+    // Otherwise, fetch from API (e.g., for deep links)
     if (mounted) setState(() => _isLoading = true);
     final sessionId = widget.sessionId;
     if (sessionId.isEmpty) {
@@ -76,7 +81,7 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
     return '$startStr - $endStr';
   }
 
-  void _toggleSchedule() {
+  Future<void> _toggleSchedule() async {
     final session = _session;
     if (session == null) return;
 
@@ -84,8 +89,12 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
 
     if (isInSchedule) {
       const RemoveConferenceFromScheduleCommand().execute(session.id);
+      // Cancel the notification
+      await const CancelConferenceNotificationCommand().execute(session.id);
     } else {
       const AddConferenceToScheduleCommand().execute(session);
+      // Schedule a notification 10 minutes before the conference
+      await const ScheduleConferenceNotificationCommand().execute(session);
     }
   }
 

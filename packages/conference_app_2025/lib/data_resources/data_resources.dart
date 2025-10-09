@@ -6,6 +6,7 @@ export 'app_messages.src.dart';
 export 'app_status.src.dart';
 export 'my_conferences.src.dart';
 export 'network_simulation_settings.src.dart';
+export 'paginated_controllers/conference_controllers.src.dart';
 export 'text_scale.src.dart';
 export 'theme_brightness.src.dart';
 
