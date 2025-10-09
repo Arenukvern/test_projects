@@ -53,7 +53,7 @@ dependencies:
   provider: ^6.1.5+1
   xsoulspace_foundation: ^0.2.2
   xsoulspace_state_utils: ^0.3.2
-  xsoulspace_ui_foundation: ^0.2.2
+  xsoulspace_ui_foundation: ^0.2.3
 
   # Notifications (iOS only)
   flutter_local_notifications: ^18.0.1

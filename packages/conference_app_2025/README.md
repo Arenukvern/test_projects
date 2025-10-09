@@ -26,6 +26,8 @@ lib/
   └── main.dart
 ```
 
+Read more about the architecture in article: https://medium.com/@antmalofeev/flutter-app-ai-centric-architecture-for-small-startups-intro-notes-99a028adc9e5
+
 ### Key Layers
 - **Data Layer**: Models (`data_models/`) and APIs (`data_api/`)
 - **State Layer**: Resources (`data_resources/`)
