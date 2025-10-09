@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_annotating_with_dynamic
 
 import 'package:conference_app_2025/common_imports.dart';
+import 'package:conference_app_2025/core/core.dart';
 import 'package:conference_app_2025/data_api/data_api.dart';
 import 'package:conference_app_2025/data_listeners/streaming_client_api.dart';
 import 'package:get_it/get_it.dart';
@@ -27,6 +28,25 @@ class Di {
   late final _get = GetIt.instance.get;
 
   void register() {
+    // Resources
+    _rl(NetworkSimulationSettingsResource.new, dispose: _disposabler);
+    _rl(AppMessagesResource.new, dispose: _disposabler);
+    _rl(AppStatusResource.new, dispose: _disposabler);
+    _rl(MyConferencesResource.new, dispose: _disposabler);
+    _rl(ConferenceTagsResource.new, dispose: _disposabler);
+    _rl(SpeakersResource.new, dispose: _disposabler);
+    _rl(TextScaleResource.new, dispose: _disposabler);
+    _rl(ThemeBrightnessResource.new, dispose: _disposabler);
+
+    // Utilities
+    _rl(
+      () => NetworkSimulator(
+        settingsResource: _g<NetworkSimulationSettingsResource>(),
+        appMessagesResource: _g<AppMessagesResource>(),
+      ),
+    );
+
+    // APIs
     _rl<StreamingClientApi>(
       StreamingClientApiMock.new,
       dispose: (final d) => d.dispose(),
@@ -34,24 +54,25 @@ class Di {
     _rl<ConferenceApiI>(ConferenceApiMockImpl.new);
     _rl<ConferenceTagsApiI>(ConferenceTagsApiMockImpl.new);
     _rl<SpeakerApiI>(SpeakerApiMockImpl.new);
-    _rl(AppStatusResource.new, dispose: _disposabler);
-    _rl(MyConferencesResource.new, dispose: _disposabler);
-    _rl(ConferenceTagsResource.new, dispose: _disposabler);
-    _rl(SpeakersResource.new, dispose: _disposabler);
-    _rl(TextScaleResource.new, dispose: _disposabler);
-    _rl(ThemeBrightnessResource.new, dispose: _disposabler);
   }
 
   Future<void> dispose() => GetIt.instance.reset();
 }
 
 mixin HasResources {
+  NetworkSimulationSettingsResource get networkSimulationSettingsResource =>
+      _g();
+  AppMessagesResource get appMessagesResource => _g();
   AppStatusResource get appStatusResource => _g();
   MyConferencesResource get myConferencesResource => _g();
   ConferenceTagsResource get conferenceTagsResource => _g();
   SpeakersResource get speakersResource => _g();
   TextScaleResource get textScaleResource => _g();
   ThemeBrightnessResource get themeBrightnessResource => _g();
+}
+
+mixin HasUtilities {
+  NetworkSimulator get networkSimulator => _g();
 }
 
 mixin HasApi {

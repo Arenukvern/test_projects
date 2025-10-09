@@ -910,7 +910,7 @@ packages:
     source: hosted
     version: "6.6.1"
   xsoulspace_foundation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: xsoulspace_foundation
       sha256: "5a20b40ae9eb39700b94153be4d0eb3f352573b6d269338d035555cb671d2011"
@@ -937,10 +937,10 @@ packages:
     dependency: "direct main"
     description:
       name: xsoulspace_ui_foundation
-      sha256: "67b2277941b70513a36fba8fe6c60344ad8ed5b91344707ebc944d6e28af9c6a"
+      sha256: "1ee53d748047ac9809a4f74b2b93e86cf09ec7985e45e1f1d674bfa54a5646ef"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.1"
+    version: "0.2.2"
   yaml:
     dependency: transitive
     description:

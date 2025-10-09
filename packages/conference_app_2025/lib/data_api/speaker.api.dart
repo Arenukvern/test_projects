@@ -1,13 +1,18 @@
+import 'package:conference_app_2025/common_imports.dart';
 import 'package:conference_app_2025/data_mocks/data_mocks.dart';
-import 'package:conference_app_2025/data_models/data_models.dart';
 import 'package:from_json_to_json/from_json_to_json.dart';
 
 abstract interface class SpeakerApiI {
   Future<List<Speaker>> getSpeakers();
 }
 
-class SpeakerApiMockImpl implements SpeakerApiI {
+class SpeakerApiMockImpl with HasUtilities implements SpeakerApiI {
+  SpeakerApiMockImpl();
+
   @override
-  Future<List<Speaker>> getSpeakers() async =>
-      jsonDecodeListAs(mockSpeakersJson).map(Speaker.fromJson).toList();
+  Future<List<Speaker>> getSpeakers() => networkSimulator.simulate(
+    () async =>
+        jsonDecodeListAs(mockSpeakersJson).map(Speaker.fromJson).toList(),
+    message: 'Failed to load speakers',
+  );
 }

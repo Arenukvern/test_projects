@@ -63,13 +63,13 @@ class _UiAllConferencesScreenState extends State<UiAllConferencesScreen>
   @override
   Widget build(final BuildContext context) {
     final conferenceTagsResource = context.watch<ConferenceTagsResource>();
-
     final myConferences = context.watch<MyConferencesResource>();
 
     return UiScaffold(
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(title: Text('All Conferences')),
+
           // Search bar
           SliverPadding(
             padding: const EdgeInsets.all(16),
@@ -135,9 +135,105 @@ class _ConferencesList extends StatelessWidget {
                     pathParameters: {'id': item.id.value},
                   ),
                 ),
+
+            newPageErrorIndicatorBuilder: (final context) =>
+                _ErrorMessagesBanner(
+                  messages: [
+                    AppMessage(
+                      id: AppMessageId.create(),
+                      message: 'Failed to load conferences',
+                      type: AppMessageType.error,
+                      feature: AppMessageFeatureTarget.loadConferences,
+                    ),
+                  ],
+                  onRetry: allConferencesResource.pager.fetchNextPage,
+                  onDismiss: (final id) {},
+                ),
           ),
         ),
   );
+}
+
+class _ErrorMessagesBanner extends StatelessWidget {
+  const _ErrorMessagesBanner({
+    required this.messages,
+    required this.onRetry,
+    required this.onDismiss,
+    this.showDismissButton = false,
+  });
+
+  final List<AppMessage> messages;
+  final VoidCallback onRetry;
+  final bool showDismissButton;
+  final void Function(AppMessageId messageId) onDismiss;
+
+  @override
+  Widget build(final BuildContext context) {
+    final theme = Theme.of(context);
+    final errorMessages = messages
+        .where((final m) => m.type == AppMessageType.error)
+        .toList();
+
+    if (errorMessages.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.errorContainer,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.error_outline,
+                color: theme.colorScheme.error,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  errorMessages.first.message,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onErrorContainer,
+                  ),
+                ),
+              ),
+              if (showDismissButton)
+                IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: theme.colorScheme.onErrorContainer,
+                  ),
+                  onPressed: () => onDismiss(errorMessages.first.id),
+                  tooltip: 'Dismiss',
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                // Dismiss message and retry
+                onDismiss(errorMessages.first.id);
+                onRetry();
+              },
+              icon: const Icon(Icons.refresh),
+              label: const Text('Retry'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.error,
+                foregroundColor: theme.colorScheme.onError,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _ConferenceListItem extends StatelessWidget {

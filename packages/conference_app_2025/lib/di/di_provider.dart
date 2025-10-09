@@ -9,6 +9,8 @@ class DiProvider extends StatelessWidget with HasResources {
     const p = ChangeNotifierProvider.value;
     return MultiProvider(
       providers: [
+        p(value: networkSimulationSettingsResource),
+        p(value: appMessagesResource),
         p(value: myConferencesResource),
         p(value: conferenceTagsResource),
         p(value: speakersResource),

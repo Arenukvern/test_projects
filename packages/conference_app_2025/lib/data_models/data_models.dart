@@ -2,6 +2,8 @@
 
 import 'package:from_json_to_json/from_json_to_json.dart';
 
+export 'app_message.dart';
+
 /// Extension type that represents a unique identifier for a session.
 ///
 /// Used to distinguish between different sessions in the conference.

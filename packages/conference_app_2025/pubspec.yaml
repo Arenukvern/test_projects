@@ -51,8 +51,9 @@ dependencies:
   infinite_scroll_pagination: ^5.1.1
   is_dart_empty_or_not: ^0.2.3
   provider: ^6.1.5+1
+  xsoulspace_foundation: ^0.2.2
   xsoulspace_state_utils: ^0.3.2
-  xsoulspace_ui_foundation: ^0.2.1
+  xsoulspace_ui_foundation: ^0.2.2
 
 dev_dependencies:
   build_runner: ^2.7.1
