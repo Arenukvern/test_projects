@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:conference_app_2025/common_imports.dart';
+import 'package:conference_app_2025/core/core.dart';
 
 /// {@template ui_conference_details_screen}
 /// Screen displaying detailed information about a conference session.
@@ -37,6 +38,7 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
   }
 
   Future<void> _loadSession() async {
+    _error = null;
     if (widget.session.isEmpty) {
       if (mounted) setState(() => _session = widget.session);
       return;
@@ -49,13 +51,15 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
       if (mounted) setState(() => _error = 'Session ID is not provided');
       return;
     }
+    try {
+      final result = await conferenceApi.getConferenceById(sessionId);
 
-    final result = await conferenceApi.getConferenceById(sessionId);
-
-    setState(() {
-      _session = result.id.isEmpty ? null : result;
-      _isLoading = false;
-    });
+      setState(() => _session = result.id.isEmpty ? null : result);
+    } on NetworkException catch (e) {
+      if (mounted) setState(() => _error = e.message);
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
   }
 
   String _formatTimeRange(final ConferenceSession session) {
@@ -99,7 +103,19 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
     if (_error != null) {
       return UiScaffold(
         appBar: AppBar(),
-        body: Center(child: Text(_error!)),
+        body: Center(
+          child: UiErrorMessagesBanner(
+            messages: [
+              AppMessage(
+                id: AppMessageId.create(),
+                message: _error!,
+                type: AppMessageType.error,
+              ),
+            ],
+            onRetry: _loadSession,
+            onDismiss: (final id) {},
+          ),
+        ),
       );
     }
 

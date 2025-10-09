@@ -1,4 +1,5 @@
 import 'package:conference_app_2025/common_imports.dart';
+import 'package:conference_app_2025/ui_conferences/ui_conference_details_screen.dart';
 import 'package:go_router/go_router.dart';
 
 /// {@template ui_my_schedule_screen}
@@ -195,8 +196,9 @@ class _ScheduleTimeline extends StatelessWidget {
                   session: entry.value,
                   isCompact: true,
                   onTap: () => context.goNamed(
-                    AppRoute.conferenceDetails.name,
+                    AppRoute.myScheduleDetails.name,
                     pathParameters: {'id': entry.value.id.value},
+                    extra: entry.value,
                   ),
                 ),
               ),
@@ -244,7 +246,7 @@ class _ScheduleTimeline extends StatelessWidget {
   Future<void> _showAllOverlappingSessions(
     final BuildContext context,
     final List<ConferenceSession> sessions,
-  ) async => showDialog<void>(
+  ) => showDialog<void>(
     context: context,
     builder: (final context) => _OverlappingSessionsDialog(sessions: sessions),
   );
@@ -394,13 +396,14 @@ class _OverlappingSessionsDialog extends StatelessWidget {
                       subtitle: Text(
                         '${_formatTimeRange(session)} • ${session.room}',
                       ),
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        context.goNamed(
-                          AppRoute.conferenceDetails.name,
-                          pathParameters: {'id': session.id.value},
-                        );
-                      },
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (final context) => UiConferenceDetailsScreen(
+                            sessionId: session.id,
+                            session: session,
+                          ),
+                        ),
+                      ),
                     ),
                   );
                 },

@@ -23,6 +23,8 @@ enum AppRoute {
   /// My schedule screen route
   mySchedule('/schedule', 'mySchedule'),
 
+  myScheduleDetails('/schedule/:id', 'myScheduleDetails'),
+
   /// Profile/settings screen route
   profile('/profile', 'profile');
 

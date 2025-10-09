@@ -61,6 +61,10 @@ class UiProfileScreen extends StatelessWidget {
 
           // Theme Brightness settings
           const _ThemeBrightnessSettingCard(),
+          const SizedBox(height: 16),
+
+          // Network Simulation settings
+          const _NetworkSimulationSettingCard(),
         ],
       ),
     );
@@ -266,6 +270,58 @@ class _ThemeButton extends StatelessWidget {
             ? theme.colorScheme.onPrimary
             : theme.colorScheme.onSurface,
         padding: const EdgeInsets.symmetric(vertical: 12),
+      ),
+    );
+  }
+}
+
+class _NetworkSimulationSettingCard extends StatelessWidget {
+  const _NetworkSimulationSettingCard();
+
+  @override
+  Widget build(final BuildContext context) {
+    final theme = Theme.of(context);
+    final networkSimulationResource = context
+        .watch<NetworkSimulationSettingsResource>();
+    final isEnabled = networkSimulationResource.value;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Network Simulation',
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Simulates delays (500-1000ms) and 10% random failures in mock APIs',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Switch(
+                  value: isEnabled,
+                  onChanged: (final value) =>
+                      networkSimulationResource.value = value,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
