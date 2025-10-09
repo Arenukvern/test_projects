@@ -21,7 +21,7 @@ lib/
   ├── data_resources/      # UI state holders (Resources)
   ├── data_commands/       # Business logic (Commands)
   ├── di/                  # Dependency injection setup
-  ├── ui_*/                # Feature-specific screens
+  ├── ui_*/                # Domain-specific screens
   ├── ui_kit/              # Reusable UI components
   └── main.dart
 ```
