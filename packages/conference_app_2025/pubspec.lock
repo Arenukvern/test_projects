@@ -937,10 +937,10 @@ packages:
     dependency: "direct main"
     description:
       name: xsoulspace_ui_foundation
-      sha256: "677b9d7043c58d25ec267159cc2f5e5f7283353befcad0a01575c8b8b1a70c54"
+      sha256: "67b2277941b70513a36fba8fe6c60344ad8ed5b91344707ebc944d6e28af9c6a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0"
+    version: "0.2.1"
   yaml:
     dependency: transitive
     description:
