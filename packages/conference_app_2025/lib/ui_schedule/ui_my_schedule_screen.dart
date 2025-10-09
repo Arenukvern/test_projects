@@ -19,7 +19,7 @@ class UiMyScheduleScreen extends StatelessWidget {
     final myConferences = context.watch<MyConferencesResource>();
     final sessions = myConferences.timelineSessions;
 
-    return Scaffold(
+    return UiScaffold(
       appBar: AppBar(title: const Text('My Schedule')),
       body: sessions.isEmpty
           ? const Center(child: Text('No sessions in your schedule'))
@@ -43,44 +43,54 @@ class _ScheduleTimeline extends StatelessWidget {
   Widget build(final BuildContext context) {
     // Build hour marks for 24 hours
     final hourMarks = List.generate(24, (final i) => i);
+    const totalHeight = 24 * hourHeight;
 
-    return Row(
-      children: [
-        // Time labels column
-        SizedBox(
-          width: timeLabelWidth,
-          child: ListView.builder(
-            itemCount: hourMarks.length,
-            itemBuilder: (final context, final index) => SizedBox(
-              height: hourHeight,
-              child: _TimeLabel(hour: hourMarks[index]),
+    return SingleChildScrollView(
+      child: Row(
+        children: [
+          // Time labels column
+          SizedBox(
+            width: timeLabelWidth,
+            height: totalHeight,
+            child: Column(
+              children: hourMarks
+                  .map(
+                    (final hour) => SizedBox(
+                      height: hourHeight,
+                      child: _TimeLabel(hour: hour),
+                    ),
+                  )
+                  .toList(),
             ),
           ),
-        ),
 
-        // Sessions area
-        Expanded(
-          child: Stack(
-            children: [
-              // Hour dividers
-              ...hourMarks.map(
-                (final hour) => Positioned(
-                  top: hour * hourHeight,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: 1,
-                    color: Theme.of(context).dividerColor,
+          // Sessions area
+          Expanded(
+            child: SizedBox(
+              height: totalHeight,
+              child: Stack(
+                children: [
+                  // Hour dividers
+                  ...hourMarks.map(
+                    (final hour) => Positioned(
+                      top: hour * hourHeight,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        height: 1,
+                        color: Theme.of(context).dividerColor,
+                      ),
+                    ),
                   ),
-                ),
-              ),
 
-              // Sessions
-              ..._buildSessionWidgets(context),
-            ],
+                  // Sessions
+                  ..._buildSessionWidgets(context),
+                ],
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
