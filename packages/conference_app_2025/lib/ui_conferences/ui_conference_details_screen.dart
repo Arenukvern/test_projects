@@ -91,7 +91,7 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
     if (_isLoading) {
       return UiScaffold(
         appBar: AppBar(),
-        body: const Center(child: CircularProgressIndicator()),
+        body: const Center(child: UiLoadingIndicator()),
       );
     }
 
@@ -118,7 +118,7 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
     if (session == null) {
       return UiScaffold(
         appBar: AppBar(),
-        body: const Center(child: Text('Conference session not found')),
+        body: const Center(child: UiText('Conference session not found')),
       );
     }
 
@@ -127,12 +127,12 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
     final dateTime = formatDateTimeRange(session.startAt, session.endAt);
 
     return UiScaffold(
-      appBar: AppBar(title: const Text('Conference Details')),
+      appBar: AppBar(title: const UiText('Conference Details')),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
           // Title
-          Text(
+          UiText(
             session.title,
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
@@ -163,19 +163,19 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
           ],
 
           // Abstract
-          Text(
+          UiText(
             'About',
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 8),
-          Text(session.abstractText, style: theme.textTheme.bodyMedium),
+          UiText(session.abstractText, style: theme.textTheme.bodyMedium),
           const SizedBox(height: 24),
 
           // Speakers
           if (session.speakerIds.isNotEmpty) ...[
-            Text(
+            UiText(
               'Speakers',
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
@@ -193,7 +193,9 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _toggleSchedule,
         icon: Icon(isInSchedule ? Icons.bookmark_remove : Icons.bookmark_add),
-        label: Text(isInSchedule ? 'Remove from Schedule' : 'Add to Schedule'),
+        label: UiText(
+          isInSchedule ? 'Remove from Schedule' : 'Add to Schedule',
+        ),
       ),
     );
   }
@@ -213,7 +215,7 @@ class _InfoRow extends StatelessWidget {
       children: [
         Icon(icon, size: 20, color: theme.colorScheme.primary),
         const SizedBox(width: 8),
-        Text(text, style: theme.textTheme.bodyLarge),
+        UiText(text, style: theme.textTheme.bodyLarge),
       ],
     );
   }
@@ -248,7 +250,7 @@ class _SpeakerCard extends StatelessWidget {
                   ? NetworkImage(avatarUrl)
                   : null,
               child: avatarUrl == null || avatarUrl.isEmpty
-                  ? Text(
+                  ? UiText(
                       speakerName.isNotEmpty
                           ? speakerName[0].toUpperCase()
                           : 'S',
@@ -263,14 +265,14 @@ class _SpeakerCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  UiText(
                     speakerName,
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
+                  UiText(
                     speakerBio,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.6),

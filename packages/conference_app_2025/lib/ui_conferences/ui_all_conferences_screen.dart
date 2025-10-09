@@ -68,7 +68,7 @@ class _UiAllConferencesScreenState extends State<UiAllConferencesScreen>
     return UiScaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(title: Text('All Conferences')),
+          const SliverAppBar(title: UiText('All Conferences')),
 
           // Search bar
           SliverPadding(
@@ -122,8 +122,9 @@ class _ConferencesList extends StatelessWidget {
           state: state,
           fetchNextPage: fetchNextPage,
           builderDelegate: PagedChildBuilderDelegate<ConferenceSession>(
-            noItemsFoundIndicatorBuilder: (final context) =>
-                const Center(child: Text('No conferences match your filters')),
+            noItemsFoundIndicatorBuilder: (final context) => const Center(
+              child: UiText('No conferences match your filters'),
+            ),
             itemBuilder: (final context, final item, final index) =>
                 _ConferenceListItem(
                   session: item,
@@ -184,7 +185,7 @@ class _ConferenceListItem extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Text(
+                    child: UiText(
                       session.title,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
@@ -208,7 +209,7 @@ class _ConferenceListItem extends StatelessWidget {
                     color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   const SizedBox(width: 4),
-                  Text(
+                  UiText(
                     dateTime.date,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
@@ -225,7 +226,7 @@ class _ConferenceListItem extends StatelessWidget {
                     color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   const SizedBox(width: 4),
-                  Text(
+                  UiText(
                     dateTime.time,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
@@ -238,7 +239,7 @@ class _ConferenceListItem extends StatelessWidget {
                     color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   const SizedBox(width: 4),
-                  Text(
+                  UiText(
                     session.room,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.6),

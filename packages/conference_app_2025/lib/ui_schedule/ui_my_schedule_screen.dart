@@ -22,7 +22,7 @@ class UiMyScheduleScreen extends StatelessWidget {
     final sessions = myConferences.timelineSessions;
 
     return UiScaffold(
-      appBar: AppBar(title: const Text('My Schedule')),
+      appBar: AppBar(title: const UiText('My Schedule')),
       body: sessions.isEmpty
           ? Column(
               children: [
@@ -30,7 +30,9 @@ class UiMyScheduleScreen extends StatelessWidget {
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Flexible(child: Text('Add some sessions to your schedule')),
+                    Flexible(
+                      child: UiText('Add some sessions to your schedule'),
+                    ),
                   ],
                 ),
                 const Spacer(),
@@ -234,7 +236,7 @@ class _ScheduleTimeline extends StatelessWidget {
                       _showAllOverlappingSessions(context, allSessions!),
                   borderRadius: BorderRadius.circular(8),
                   child: Center(
-                    child: Text(
+                    child: UiText(
                       '+$moreCount',
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         color: Theme.of(
@@ -285,7 +287,7 @@ class _TimeLabel extends StatelessWidget {
       padding: const EdgeInsets.only(right: 8, top: 4),
       child: Align(
         alignment: Alignment.topRight,
-        child: Text(
+        child: UiText(
           '$hourStr:00',
           style: theme.textTheme.labelSmall?.copyWith(
             color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
@@ -322,7 +324,7 @@ class _SessionCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              UiText(
                 session.title,
                 style:
                     (isCompact
@@ -343,7 +345,7 @@ class _SessionCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Expanded(
-                      child: Text(
+                      child: UiText(
                         session.room,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurface.withValues(
@@ -395,7 +397,7 @@ class _OverlappingSessionsDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            UiText(
               'Overlapping Sessions',
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
@@ -410,9 +412,9 @@ class _OverlappingSessionsDialog extends StatelessWidget {
                   final session = sessions[index];
                   return Card(
                     margin: const EdgeInsets.only(bottom: 8),
-                    child: ListTile(
-                      title: Text(session.title),
-                      subtitle: Text(
+                    child: UiListTile(
+                      title: UiText(session.title),
+                      subtitle: UiText(
                         '${_formatTimeRange(session)} • ${session.room}',
                       ),
                       onTap: () => Navigator.of(context).push(
@@ -431,9 +433,10 @@ class _OverlappingSessionsDialog extends StatelessWidget {
             const SizedBox(height: 16),
             Align(
               alignment: Alignment.centerRight,
-              child: TextButton(
+              child: UiButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Close'),
+                text: 'Close',
+                decoration: UiButtonDecoration.text,
               ),
             ),
           ],

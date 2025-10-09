@@ -50,15 +50,15 @@ class _UiSplashScreenState extends State<UiSplashScreen> with HasResources {
   Widget build(final BuildContext context) {
     final appStatus = context.watch<AppStatusResource>();
 
-    return Scaffold(
+    return UiScaffold(
       body: Center(
         child: switch (appStatus.value) {
           AppStatus.loading => const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(),
+              UiLoadingIndicator(),
               SizedBox(height: 16),
-              Text('Loading conference data...'),
+              UiText('Loading conference data...'),
             ],
           ),
           AppStatus.error => Column(
@@ -66,9 +66,9 @@ class _UiSplashScreenState extends State<UiSplashScreen> with HasResources {
             children: [
               const Icon(Icons.error_outline, size: 48, color: Colors.red),
               const SizedBox(height: 16),
-              const Text('Failed to load data'),
+              const UiText('Failed to load data'),
               const SizedBox(height: 16),
-              ElevatedButton(onPressed: _retry, child: const Text('Retry')),
+              UiButton(onPressed: _retry, text: 'Retry'),
             ],
           ),
           AppStatus.ready => const SizedBox.shrink(),

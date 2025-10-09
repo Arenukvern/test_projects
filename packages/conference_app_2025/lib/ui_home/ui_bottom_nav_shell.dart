@@ -81,7 +81,7 @@ class _NavItem extends StatelessWidget {
             children: [
               Icon(icon, color: color, size: 24),
               const SizedBox(height: 4),
-              Text(
+              UiText(
                 label,
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: color,

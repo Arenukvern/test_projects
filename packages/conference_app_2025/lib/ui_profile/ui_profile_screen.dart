@@ -15,8 +15,8 @@ class UiProfileScreen extends StatelessWidget {
   Widget build(final BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Profile & Settings')),
+    return UiScaffold(
+      appBar: AppBar(title: const UiText('Profile & Settings')),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -36,7 +36,7 @@ class UiProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text(
+                  UiText(
                     'Conference Attendee',
                     style: theme.textTheme.titleLarge,
                   ),
@@ -47,7 +47,7 @@ class UiProfileScreen extends StatelessWidget {
           const SizedBox(height: 24),
 
           // Settings section
-          Text(
+          UiText(
             'Settings',
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
@@ -87,7 +87,7 @@ class _TextScaleSettingCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            UiText(
               'Text Scale',
               style: theme.textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w600,
@@ -118,7 +118,7 @@ class _TextScaleSettingCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Center(
-                      child: Text(
+                      child: UiText(
                         isAuto ? 'Auto' : '${(currentScale * 100).round()}%',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600,
@@ -140,9 +140,14 @@ class _TextScaleSettingCard extends StatelessWidget {
                 const SizedBox(width: 12),
 
                 // Auto button
-                FilledButton(
+                UiButton(
                   onPressed: textScaleResource.useSystemScale,
-                  style: FilledButton.styleFrom(
+                  decoration: UiButtonDecoration.create(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 24,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
                     backgroundColor: isAuto
                         ? theme.colorScheme.primary
                         : theme.colorScheme.surfaceContainerHighest,
@@ -150,7 +155,7 @@ class _TextScaleSettingCard extends StatelessWidget {
                         ? theme.colorScheme.onPrimary
                         : theme.colorScheme.onSurface,
                   ),
-                  child: const Text('Auto'),
+                  text: 'Auto',
                 ),
               ],
             ),
@@ -197,7 +202,7 @@ class _ThemeBrightnessSettingCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            UiText(
               'Theme',
               style: theme.textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w600,
@@ -258,19 +263,19 @@ class _ThemeButton extends StatelessWidget {
   Widget build(final BuildContext context) {
     final theme = Theme.of(context);
 
-    return FilledButton.icon(
+    return UiButton(
       onPressed: onPressed,
-      icon: Icon(icon, size: 20),
-      label: Text(label),
-      style: FilledButton.styleFrom(
+      decoration: UiButtonDecoration.create(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
         backgroundColor: isSelected
             ? theme.colorScheme.primary
             : theme.colorScheme.surfaceContainerHighest,
         foregroundColor: isSelected
             ? theme.colorScheme.onPrimary
             : theme.colorScheme.onSurface,
-        padding: const EdgeInsets.symmetric(vertical: 12),
       ),
+      child: Column(children: [Icon(icon, size: 20), UiText(label)]),
     );
   }
 }
@@ -297,14 +302,14 @@ class _NetworkSimulationSettingCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      UiText(
                         'Network Simulation',
                         style: theme.textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
+                      UiText(
                         'Simulates delays (500-1000ms) and 10% random failures in mock APIs',
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,

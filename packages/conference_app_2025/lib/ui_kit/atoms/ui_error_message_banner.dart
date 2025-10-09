@@ -1,4 +1,7 @@
 import 'package:conference_app_2025/data_models/data_models.dart';
+import 'package:conference_app_2025/ui_kit/atoms/ui_text.dart';
+import 'package:conference_app_2025/ui_kit/decorations/decorations.dart';
+import 'package:conference_app_2025/ui_kit/molecules/molecules.dart';
 import 'package:flutter/material.dart';
 
 class UiErrorMessagesBanner extends StatelessWidget {
@@ -44,7 +47,7 @@ class UiErrorMessagesBanner extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: Text(
+                child: UiText(
                   errorMessages.first.message,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onErrorContainer,
@@ -65,15 +68,20 @@ class UiErrorMessagesBanner extends StatelessWidget {
           const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton.icon(
+            child: UiButton(
               onPressed: () {
                 // Dismiss message and retry
                 onDismiss(errorMessages.first.id);
                 onRetry();
               },
               icon: const Icon(Icons.refresh),
-              label: const Text('Retry'),
-              style: ElevatedButton.styleFrom(
+              text: 'Retry',
+              decoration: UiButtonDecoration.create(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 24,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
                 backgroundColor: theme.colorScheme.error,
                 foregroundColor: theme.colorScheme.onError,
               ),

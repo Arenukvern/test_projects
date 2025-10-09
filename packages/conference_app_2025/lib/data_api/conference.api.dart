@@ -29,12 +29,21 @@ class ConferenceApiMockImpl with HasUtilities implements ConferenceApiI {
           jsonDecodeListAs<Map<String, dynamic>>(
             mockConferencesPaginatedJson,
           ).map<ConferenceSession>(ConferenceSession.fromJson);
-      if (searchQuery.isNotEmpty || selectedTags.isNotEmpty) {
-        iterable = iterable.where(
-          (final session) =>
-              selectedTags.every((final tag) => session.tags.contains(tag)) &&
-              session.title.toLowerCase().contains(searchQuery.toLowerCase()),
-        );
+      final effectiveSearchQuery = searchQuery.toLowerCase();
+      if (effectiveSearchQuery.isNotEmpty || selectedTags.isNotEmpty) {
+        // Apply filters conditionally using separate where clauses
+        if (selectedTags.isNotEmpty) {
+          iterable = iterable.where(
+            (final session) =>
+                selectedTags.every((final tag) => session.tags.contains(tag)),
+          );
+        }
+        if (effectiveSearchQuery.isNotEmpty) {
+          iterable = iterable.where(
+            (final session) =>
+                session.title.toLowerCase().contains(effectiveSearchQuery),
+          );
+        }
       }
       final result = iterable
           .skip((page - 1) * dataPerPage)
