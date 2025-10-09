@@ -134,10 +134,9 @@ class UiScaffold extends StatelessWidget {
   /// If provided, overrides global setting for this screen only.
   final double? textScaleFactor;
 
-  TextScaler _getTextScaler(final BuildContext context) {
+  TextScaler? _getTextScaler(final BuildContext context) {
     if (textScaleFactor != null) return TextScaler.linear(textScaleFactor!);
-    final resource = context.watch<TextScaleResource>();
-    return resource.scalerOf(context);
+    return null;
   }
 
   @override

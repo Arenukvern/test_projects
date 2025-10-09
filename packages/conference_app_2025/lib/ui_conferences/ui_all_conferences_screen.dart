@@ -166,24 +166,10 @@ class _ConferenceListItem extends StatelessWidget {
   final bool isInSchedule;
   final VoidCallback onTap;
 
-  String _formatTimeRange() {
-    final start = session.startAt;
-    final end = session.endAt;
-
-    if (start == null || end == null) return '';
-
-    final startStr =
-        '${start.hour.toString().padLeft(2, '0')}:${start.minute.toString().padLeft(2, '0')}';
-    final endStr =
-        '${end.hour.toString().padLeft(2, '0')}:${end.minute.toString().padLeft(2, '0')}';
-
-    return '$startStr - $endStr';
-  }
-
   @override
   Widget build(final BuildContext context) {
     final theme = Theme.of(context);
-    final timeRange = _formatTimeRange();
+    final dateTime = formatDateTimeRange(session.startAt, session.endAt);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
@@ -217,13 +203,30 @@ class _ConferenceListItem extends StatelessWidget {
               Row(
                 children: [
                   Icon(
+                    Icons.calendar_today,
+                    size: 16,
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    dateTime.date,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  Icon(
                     Icons.access_time,
                     size: 16,
                     color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    timeRange,
+                    dateTime.time,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                     ),

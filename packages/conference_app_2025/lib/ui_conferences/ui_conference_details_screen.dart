@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:conference_app_2025/common_imports.dart';
-import 'package:conference_app_2025/core/core.dart';
 
 /// {@template ui_conference_details_screen}
 /// Screen displaying detailed information about a conference session.
@@ -67,20 +66,6 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
     }
   }
 
-  String _formatTimeRange(final ConferenceSession session) {
-    final start = session.startAt;
-    final end = session.endAt;
-
-    if (start == null || end == null) return '';
-
-    final startStr =
-        '${start.hour.toString().padLeft(2, '0')}:${start.minute.toString().padLeft(2, '0')}';
-    final endStr =
-        '${end.hour.toString().padLeft(2, '0')}:${end.minute.toString().padLeft(2, '0')}';
-
-    return '$startStr - $endStr';
-  }
-
   Future<void> _toggleSchedule() async {
     final session = _session;
     if (session == null) return;
@@ -138,7 +123,7 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
 
     final myConferences = context.watch<MyConferencesResource>();
     final isInSchedule = myConferences.hasSession(session.id);
-    final timeRange = _formatTimeRange(session);
+    final dateTime = formatDateTimeRange(session.startAt, session.endAt);
 
     return UiScaffold(
       appBar: AppBar(title: const Text('Conference Details')),
@@ -154,8 +139,10 @@ class _UiConferenceDetailsScreenState extends State<UiConferenceDetailsScreen>
           ),
           const SizedBox(height: 16),
 
-          // Time and room
-          _InfoRow(icon: Icons.access_time, text: timeRange),
+          // Date, time and room
+          _InfoRow(icon: Icons.calendar_today, text: dateTime.date),
+          const SizedBox(height: 8),
+          _InfoRow(icon: Icons.access_time, text: dateTime.time),
           const SizedBox(height: 8),
           _InfoRow(icon: Icons.room, text: session.room),
           const SizedBox(height: 16),

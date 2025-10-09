@@ -54,7 +54,7 @@ final appRouter = GoRouter(
                     final session = ConferenceSession.fromJson(state.extra);
                     return UiConferenceDetailsScreen(
                       sessionId: sessionId,
-                      key: ValueKey(sessionId),
+                      key: ValueKey('conference-details-$sessionId'),
                       session: session,
                     );
                   },
@@ -83,7 +83,7 @@ final appRouter = GoRouter(
                     final session = ConferenceSession.fromJson(state.extra);
                     return UiConferenceDetailsScreen(
                       sessionId: sessionId,
-                      key: ValueKey(sessionId),
+                      key: ValueKey('schedule-details-$sessionId'),
                       session: session,
                     );
                   },

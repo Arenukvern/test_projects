@@ -4,7 +4,6 @@ import 'package:conference_app_2025/common_imports.dart';
 import 'package:conference_app_2025/core/core.dart';
 import 'package:conference_app_2025/data_api/data_api.dart';
 import 'package:conference_app_2025/data_listeners/streaming_client_api.dart';
-import 'package:conference_app_2025/services/notification_service.dart';
 import 'package:get_it/get_it.dart';
 
 T _g<T extends Object>({

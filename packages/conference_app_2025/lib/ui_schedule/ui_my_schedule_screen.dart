@@ -1,5 +1,6 @@
 import 'package:conference_app_2025/common_imports.dart';
 import 'package:conference_app_2025/ui_conferences/ui_conference_details_screen.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 /// {@template ui_my_schedule_screen}
@@ -23,7 +24,24 @@ class UiMyScheduleScreen extends StatelessWidget {
     return UiScaffold(
       appBar: AppBar(title: const Text('My Schedule')),
       body: sessions.isEmpty
-          ? const Center(child: Text('No sessions in your schedule'))
+          ? Column(
+              children: [
+                const Spacer(),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(child: Text('Add some sessions to your schedule')),
+                  ],
+                ),
+                const Spacer(),
+                UiButton(
+                  onPressed: () =>
+                      context.goNamed(AppRoute.allConferences.name),
+                  text: 'Add sessions',
+                ),
+                const Gap(24),
+              ],
+            )
           : _ScheduleTimeline(sessions: sessions),
     );
   }
@@ -160,8 +178,9 @@ class _ScheduleTimeline extends StatelessWidget {
       child: _SessionCard(
         session: session,
         onTap: () => context.goNamed(
-          AppRoute.conferenceDetails.name,
+          AppRoute.myScheduleDetails.name,
           pathParameters: {'id': session.id.value},
+          extra: session,
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:conference_app_2025/core/network_exception.dart';
+import 'package:conference_app_2025/core/exceptions/network_exception.dart';
 import 'package:conference_app_2025/data_models/data_models.dart';
 import 'package:conference_app_2025/data_resources/app_messages.src.dart';
 import 'package:conference_app_2025/data_resources/network_simulation_settings.src.dart';
